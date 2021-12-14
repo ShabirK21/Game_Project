@@ -1,5 +1,3 @@
-//Setup Scenery for the Sketch
-
 var gameChar_x;
 var gameChar_y;
 var floorPos_y;
@@ -20,26 +18,37 @@ var trees_x;
 var canyon;
 var collectable;
 
+var gameMode;
+
+var i = 0;
+
 //Main Functions
+
 function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
   gameChar_x = width / 2;
   gameChar_y = floorPos_y;
+  gameChar_width = 50;
 
   isLeft = false;
   isRight = false;
   isFalling = false;
   isPlummeting = false;
 
+  gameMode = 1;
+
   scrollPos = 0;
 
-  gameChar_width = 50;
+  collectable = {
+    x_pos: 10,
+    y_pos: floorPos_y - 20,
+    size: 40,
+    isFound: false,
+  };
+  canyon = { x_pos: 50, width: 100 };
 
-  collectable = { x_pos: -100, y_pos: floorPos_y, size: 40, isFound: false };
-  canyon = { x_pos: 0, width: 100 };
-
-  trees_x = [100, 300, 500, 1000];
+  trees_x = [300, 500, 800, 1100];
   tree = {
     trunkX: trees_x - 100,
     trunkY: floorPos_y - 100,
@@ -73,19 +82,19 @@ function setup() {
   ];
   mountain = [
     {
-      x1: 1024 / 2 - 250,
+      x1: 1024 / 2 - 200,
       y1: 576 / 2 - 100,
-      x2: 1024 / 2 - 350,
+      x2: 1024 / 2 - 300,
       y2: floorPos_y,
-      x3: 1024 / 2 - 150,
+      x3: 1024 / 2 - 100,
       y3: floorPos_y,
     },
     {
-      x1: 1024 / 2 - 150,
+      x1: 1024 / 2 - 100,
       y1: 576 / 2 - 100,
-      x2: 1024 / 2 - 250,
+      x2: 1024 / 2 - 200,
       y2: floorPos_y,
-      x3: 1024 / 2 - 50,
+      x3: 1024 / 2,
       y3: floorPos_y,
     },
   ];
@@ -124,6 +133,23 @@ function setup() {
 }
 
 function draw() {
+  if (gameMode == 1) {
+    splashScreen();
+  } else if (gameMode == 2) {
+    gamePlay();
+  }
+}
+
+function splashScreen() {
+  background(255, 0, 0);
+  if (frameCount % 60 < 30) {
+    textFont("Helvetica");
+    textSize(100);
+    text("Start", 300, 300);
+  }
+}
+
+function gamePlay() {
   background(100, 155, 255);
   noStroke();
   fill(0, 155, 0);
@@ -139,6 +165,7 @@ function draw() {
   drawSnow();
   drawCanyon();
   drawCollectable();
+
   pop();
 
   //Draw the Game Character
@@ -155,6 +182,7 @@ function draw() {
   } else {
     drawFacingFront();
   }
+
   //Interaction
   if (isPlummeting == true) {
     gameChar_y += 5;
@@ -185,6 +213,7 @@ function draw() {
   }
 
   checkIfGameCharInCollectableRange();
+
   checkIfGameCharIsOverCanyon();
 }
 
@@ -198,6 +227,10 @@ function keyPressed() {
     if (gameChar_y >= floorPos_y) {
       gameChar_y -= 50;
     }
+  }
+
+  if (keyCode == 13) {
+    gameMode = 2;
   }
 }
 
@@ -254,20 +287,6 @@ function drawMountain() {
       mountain[i].x3,
       mountain[i].y3
     );
-  }
-}
-
-function drawCanyon() {
-  fill(0, 0, 0);
-  rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
-}
-
-function drawCollectable() {
-  if (collectable.isFound == false) {
-    fill(255, 215, 0);
-    stroke(0);
-    ellipse(collectable.x_pos, collectable.y_pos - 20, 20, 30);
-    ellipse(collectable.x_pos, collectable.y_pos - 20, 10, 20);
   }
 }
 
@@ -368,12 +387,12 @@ function drawJumpUp() {
   rect(gameChar_x - 10, gameChar_y - 30, 20, 25);
   //Legs
   fill(0);
-  rect(gameChar_x + 3, gameChar_y - 10, 7, 13);
-  rect(gameChar_x - 10, gameChar_y - 10, 7, 13);
+  rect(gameChar_x + 3, gameChar_y - 15, 7, 13);
+  rect(gameChar_x - 10, gameChar_y - 15, 7, 13);
   //Hands
   fill(0);
-  rect(gameChar_x + 10, gameChar_y - 25, 5, 10);
-  rect(gameChar_x - 15, gameChar_y - 25, 5, 10);
+  rect(gameChar_x + 10, gameChar_y - 30, 5, 10);
+  rect(gameChar_x - 15, gameChar_y - 30, 5, 10);
 }
 
 function drawJumpRight() {
@@ -396,12 +415,12 @@ function drawJumpRight() {
   rect(gameChar_x - 10, gameChar_y - 30, 20, 25);
   //Legs
   fill(0);
-  rect(gameChar_x + 4, gameChar_y - 10, 7, 13);
-  rect(gameChar_x - 9, gameChar_y - 10, 7, 13);
+  rect(gameChar_x + 4, gameChar_y - 15, 7, 13);
+  rect(gameChar_x - 9, gameChar_y - 15, 7, 13);
   //Hands
   fill(0);
-  rect(gameChar_x + 10, gameChar_y - 25, 5, 10);
-  rect(gameChar_x - 10, gameChar_y - 25, 5, 10);
+  rect(gameChar_x + 10, gameChar_y - 30, 5, 10);
+  rect(gameChar_x - 10, gameChar_y - 30, 5, 10);
 }
 
 function drawJumpLeft() {
@@ -424,12 +443,12 @@ function drawJumpLeft() {
   rect(gameChar_x - 10, gameChar_y - 30, 20, 25);
   //Legs
   fill(0);
-  rect(gameChar_x + 2, gameChar_y - 10, 7, 13);
-  rect(gameChar_x - 11, gameChar_y - 10, 7, 13);
+  rect(gameChar_x + 2, gameChar_y - 15, 7, 13);
+  rect(gameChar_x - 11, gameChar_y - 15, 7, 13);
   //Hands
   fill(0);
-  rect(gameChar_x + 5, gameChar_y - 25, 5, 10);
-  rect(gameChar_x - 15, gameChar_y - 25, 5, 10);
+  rect(gameChar_x + 5, gameChar_y - 30, 5, 10);
+  rect(gameChar_x - 15, gameChar_y - 30, 5, 10);
 }
 
 //Interactivity Functions
@@ -438,6 +457,20 @@ function checkIfGameCharInCollectableRange() {
   if (d < 20) {
     collectable.isFound = true;
   }
+}
+
+function drawCollectable() {
+  if (collectable.isFound == false) {
+    fill(255, 215, 0);
+    stroke(0);
+    ellipse(collectable.x_pos, collectable.y_pos, 20, 30);
+    ellipse(collectable.x_pos, collectable.y_pos, 10, 20);
+  }
+}
+
+function drawCanyon() {
+  fill(0, 0, 0);
+  rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
 }
 
 function checkIfGameCharIsOverCanyon() {
