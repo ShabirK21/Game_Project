@@ -29,7 +29,7 @@ function setup() {
   floorPos_y = (height * 3) / 4;
   gameChar_x = width / 2;
   gameChar_y = floorPos_y;
-  gameChar_width = 90;
+  gameChar_width = 50;
 
   isLeft = false;
   isRight = false;
@@ -43,7 +43,7 @@ function setup() {
   collectable = { x_pos: 200, y_pos: floorPos_y, size: 40, isFound: false };
   canyon = { x_pos: 300, width: 100 };
 
-  trees_x = [300, 500, 800, 1100];
+  trees_x = [500, 800, 1000, 1300];
   tree = {
     trunkX: trees_x - 100,
     trunkY: floorPos_y - 100,
@@ -77,19 +77,27 @@ function setup() {
   ];
   mountain = [
     {
-      x1: 1024 / 2 - 200,
-      y1: 576 / 2 - 100,
-      x2: 1024 / 2 - 300,
+      x1: width / 2 + 100,
+      y1: height / 2 - 100,
+      x2: width / 2 - 50,
       y2: floorPos_y,
-      x3: 1024 / 2 - 100,
+      x3: width / 2 + 300,
       y3: floorPos_y,
     },
     {
-      x1: 1024 / 2 - 100,
-      y1: 576 / 2 - 100,
-      x2: 1024 / 2 - 200,
+      x1: width / 2 + 200,
+      y1: height / 2 - 200,
+      x2: width / 2,
       y2: floorPos_y,
-      x3: 1024 / 2,
+      x3: width / 2 + 400,
+      y3: floorPos_y,
+    },
+    {
+      x1: width / 2 + 150,
+      y1: height / 2 - 150,
+      x2: width / 2,
+      y2: floorPos_y,
+      x3: width / 2 + 350,
       y3: floorPos_y,
     },
   ];
@@ -147,7 +155,7 @@ function splashScreen() {
 function gamePlay() {
   background(100, 155, 255);
   noStroke();
-  fill(0, 155, 0);
+  fill(255, 250, 250);
   rect(0, floorPos_y, width, height - floorPos_y);
 
   push();
@@ -160,7 +168,6 @@ function gamePlay() {
   drawSnow();
   drawCanyon();
   drawCollectable();
-
   pop();
 
   //Draw the Game Character
@@ -208,7 +215,6 @@ function gamePlay() {
   }
 
   checkIfGameCharInCollectableRange();
-
   checkIfGameCharIsOverCanyon();
 }
 
@@ -464,8 +470,8 @@ function drawCollectable() {
 }
 
 function drawCanyon() {
-  fill(0, 0, 0);
-  rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
+  fill(59, 230, 245);
+  rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y - 100);
 }
 
 function checkIfGameCharIsOverCanyon() {
