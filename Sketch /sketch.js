@@ -29,7 +29,7 @@ function setup() {
   floorPos_y = (height * 3) / 4;
   gameChar_x = width / 2;
   gameChar_y = floorPos_y;
-  gameChar_width = 50;
+  gameChar_width = 90;
 
   isLeft = false;
   isRight = false;
@@ -40,13 +40,8 @@ function setup() {
 
   scrollPos = 0;
 
-  collectable = {
-    x_pos: 10,
-    y_pos: floorPos_y - 20,
-    size: 40,
-    isFound: false,
-  };
-  canyon = { x_pos: 50, width: 100 };
+  collectable = { x_pos: 200, y_pos: floorPos_y, size: 40, isFound: false };
+  canyon = { x_pos: 300, width: 100 };
 
   trees_x = [300, 500, 800, 1100];
   tree = {
@@ -463,8 +458,8 @@ function drawCollectable() {
   if (collectable.isFound == false) {
     fill(255, 215, 0);
     stroke(0);
-    ellipse(collectable.x_pos, collectable.y_pos, 20, 30);
-    ellipse(collectable.x_pos, collectable.y_pos, 10, 20);
+    ellipse(collectable.x_pos, collectable.y_pos - 20, 20, 30);
+    ellipse(collectable.x_pos, collectable.y_pos - 20, 10, 20);
   }
 }
 
