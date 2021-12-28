@@ -20,6 +20,7 @@ var tree;
 var trees_x;
 var canyons;
 var collectables;
+var snowman;
 
 var gameMode;
 //Main Functions
@@ -142,26 +143,13 @@ function setup() {
       h: 20,
     },
   ];
+  snowman = [
+    { y: floorPos_y - 20, width: 50, height: 50 },
+    { y: floorPos_y - 40, width: 40, height: 40 },
+    { y: floorPos_y - 60, width: 30, height: 30 },
+  ];
 }
-
 function draw() {
-  if (gameMode == 1) {
-    splashScreen();
-  } else if (gameMode == 2) {
-    gamePlay();
-  }
-}
-
-function splashScreen() {
-  background(255, 0, 0);
-  if (frameCount % 60 < 30) {
-    textFont("Helvetica");
-    textSize(100);
-    text("Start", 300, 300);
-  }
-}
-
-function gamePlay() {
   background(100, 155, 255);
   noStroke();
   fill(255, 250, 250);
@@ -177,6 +165,7 @@ function gamePlay() {
   drawSnow();
   drawCanyons();
   drawCollectables();
+  drawSnowman();
   pop();
 
   //Draw the Game Character
@@ -297,6 +286,16 @@ function drawMountain() {
       mountain[i].x3,
       mountain[i].y3
     );
+  }
+}
+
+function drawSnowman() {
+  fill(255, 255, 255);
+  noStroke();
+  for (var i = 0; i < snowman.length; i++) {
+    ellipse(400, snowman[i].y, snowman[i].width, snowman[i].height);
+    ellipse(400, snowman[i].y, snowman[i].width, snowman[i].height);
+    ellipse(400, snowman[i].y, snowman[i].width, snowman[i].height);
   }
 }
 
