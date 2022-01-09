@@ -20,6 +20,7 @@ var tree;
 var trees_x;
 var canyons;
 var collectables;
+var snowflakes;
 
 var gameMode;
 //Main Functions
@@ -46,13 +47,10 @@ function setup() {
     { x_pos: 100, y_pos: floorPos_y, size: 40, isFound: false },
     { x_pos: 0, y_pos: floorPos_y, size: 40, isFound: false },
   ];
-  canyons = [
-    { x_pos: 200, width: 100 },
-    { x_pos: 10, width: 100 },
-    { x_pos: 10, width: 100 },
-  ];
 
-  trees_x = [500, 800, 1000, 1300];
+  canyons = [{ x_pos: 300, width: 100 }];
+
+  trees_x = [500];
   tree = {
     trunkX: trees_x - 100,
     trunkY: floorPos_y - 100,
@@ -84,64 +82,49 @@ function setup() {
       h: 80,
     },
   ];
+
   mountain = [
+    {
+      x1: width / 2 + 240,
+      y1: height / 2 - 200,
+      x2: width / 2 + 20,
+      y2: floorPos_y,
+      x3: width / 2 + 460,
+      y3: floorPos_y,
+      color: (192, 192, 192),
+      snowcapX1: 834,
+      snowcapY1: 216,
+      snowcapX2: 763,
+      snowcapY2: 170,
+      snowcapX3: 753,
+      snowcapY3: 220,
+      snowcapX4: 723,
+      snowcapY4: 187,
+      snowcapX5: 665,
+      snowcapY5: 225,
+    },
     {
       x1: width / 2 + 100,
       y1: height / 2 - 100,
-      x2: width / 2 - 50,
+      x2: width / 2 - 90,
       y2: floorPos_y,
       x3: width / 2 + 300,
       y3: floorPos_y,
-    },
-    {
-      x1: width / 2 + 200,
-      y1: height / 2 - 200,
-      x2: width / 2,
-      y2: floorPos_y,
-      x3: width / 2 + 400,
-      y3: floorPos_y,
-    },
-    {
-      x1: width / 2 + 150,
-      y1: height / 2 - 150,
-      x2: width / 2,
-      y2: floorPos_y,
-      x3: width / 2 + 350,
-      y3: floorPos_y,
+      color: (105, 105, 105),
+      snowcapX1: 718,
+      snowcapY1: 316,
+      snowcapX2: 643,
+      snowcapY2: 270,
+      snowcapX3: 613,
+      snowcapY3: 320,
+      snowcapX4: 573,
+      snowcapY4: 287,
+      snowcapX5: 505,
+      snowcapY5: 325,
     },
   ];
-  snow = [
-    {
-      x: 100,
-      y: 100,
-      w: 20,
-      h: 20,
-    },
-    {
-      x: 300,
-      y: 100,
-      w: 20,
-      h: 20,
-    },
-    {
-      x: 500,
-      y: 100,
-      w: 20,
-      h: 20,
-    },
-    {
-      x: 700,
-      y: 100,
-      w: 20,
-      h: 20,
-    },
-    {
-      x: 800,
-      y: 100,
-      w: 20,
-      h: 20,
-    },
-  ];
+
+  snowflakes = [];
 }
 
 function draw() {
@@ -171,12 +154,13 @@ function gamePlay() {
   translate(scrollPos, 0);
 
   //Draw the scenery
-  drawClouds();
+  //drawClouds();
   drawMountain();
-  drawTree();
-  drawSnow();
+  //drawTree();
+  //drawSnow();
   drawCanyons();
   drawCollectables();
+  drawSnow();
   pop();
 
   //Draw the Game Character
