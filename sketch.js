@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 var gameChar_x;
 var gameChar_y;
 var floorPos_y;
@@ -48,7 +46,7 @@ function setup() {
     { x_pos: 0, y_pos: floorPos_y, size: 40, isFound: false },
   ];
 
-  canyons = [{ x_pos: 300, width: 100 }];
+  canyons = [{ x_pos: 250, width: 100 }];
 
   trees_x = [500];
   tree = {
@@ -56,8 +54,6 @@ function setup() {
     trunkY: floorPos_y - 100,
     trunkW: 30,
     trunkH: 100,
-    leafX: trees_x + 100,
-    leafY: floorPos_y - 100,
     leafW: 50,
     leafH: 50,
   };
@@ -70,14 +66,20 @@ function setup() {
       h: 80,
     },
     {
-      x1: 400,
-      y1: 100,
+      x1: 300,
+      y1: 80,
+      w: 80,
+      h: 80,
+    },
+    {
+      x1: 500,
+      y1: 88,
       w: 80,
       h: 80,
     },
     {
       x1: 1000,
-      y1: 100,
+      y1: 70,
       w: 80,
       h: 80,
     },
@@ -141,6 +143,8 @@ function splashScreen() {
     textFont("Helvetica");
     textSize(100);
     text("Start", 300, 300);
+    textSize(50);
+    text("Press Space or Enter to Start", 150, 400);
   }
 }
 
@@ -154,13 +158,12 @@ function gamePlay() {
   translate(scrollPos, 0);
 
   //Draw the scenery
-  //drawClouds();
   drawMountain();
-  //drawTree();
-  //drawSnow();
+  drawClouds();
+  drawTree();
   drawCanyons();
-  drawCollectables();
   drawSnow();
+  drawCollectables();
   pop();
 
   //Draw the Game Character

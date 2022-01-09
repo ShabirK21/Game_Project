@@ -29,6 +29,7 @@ function drawCollectable(collectable) {
   if (collectable.isFound == false) {
     fill(255, 215, 0);
     stroke(0);
+    strokeWeight(1);
     ellipse(collectable.x_pos, collectable.y_pos - 20, 20, 30);
     ellipse(collectable.x_pos, collectable.y_pos - 20, 10, 20);
   }
@@ -42,7 +43,7 @@ function drawCanyons() {
 }
 
 function drawCanyon(canyon) {
-  fill(59, 230, 245);
+  fill(100, 155, 255);
   rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
 }
 

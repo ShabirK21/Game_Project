@@ -4,9 +4,12 @@ function drawClouds() {
     fill(255, 255, 255);
     noStroke();
     ellipse(clouds[i].x1, clouds[i].y1, clouds[i].w, clouds[i].h);
-    ellipse(clouds[i].x1 - 20, clouds[i].y1, clouds[i].w - 5, clouds[i].h - 30);
-    ellipse(clouds[i].x1 + 20, clouds[i].y1, clouds[i].w - 5, clouds[i].h - 30);
+    ellipse(clouds[i].x1 + 10, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
+    ellipse(clouds[i].x1 - 20, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
     clouds[i].x1 -= 1;
+    if (clouds[i].x1 < -10) {
+      clouds[i].x1 = width;
+    }
   }
 }
 function drawTree() {
@@ -41,21 +44,6 @@ function drawTree() {
     );
   }
 }
-
-/*function drawMountain() {
-  fill(119, 136, 153);
-  noStroke();
-  for (var i = 0; i < mountain.length; i++) {
-    triangle(
-      mountain[i].x1,
-      mountain[i].y1,
-      mountain[i].x2,
-      mountain[i].y2,
-      mountain[i].x3,
-      mountain[i].y3
-    );
-  }
-}*/
 
 function drawMountain() {
   noStroke();
