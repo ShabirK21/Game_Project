@@ -7,11 +7,23 @@ function drawClouds() {
     ellipse(clouds[i].x1 + 10, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
     ellipse(clouds[i].x1 - 20, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
     clouds[i].x1 -= 1;
-    if (clouds[i].x1 < -10) {
+    if (clouds[i].x1 < 0 - scrollPos) {
       clouds[i].x1 = width;
     }
   }
 }
+
+function initClouds() {
+  for (var i = 0; i < 10; i++) {
+    var x = random(10, width - 10);
+    var y = random(20, 80);
+    var w = random(40, 70);
+    var s = random(05, 2);
+    var cloud = { x_pos: x, y_pos: y, width: w, speed: s };
+    clouds.push(cloud);
+  }
+}
+
 function drawTree() {
   for (var i = 0; i < trees_x.length; i++) {
     fill(139, 69, 19);
@@ -93,7 +105,7 @@ function snowflake() {
   this.posX = 0;
   this.posY = random(-100, 0);
   this.initialangle = random(0, 2 * PI);
-  this.size = random(2, 5);
+  this.size = random(2, 10);
 
   // radius of snowflake spiral
   // chosen so the snowflakes are uniformly spread out in area
@@ -105,7 +117,7 @@ function snowflake() {
 
   this.update = function (time) {
     // x position follows a circle
-    let w = 0.6; // angular speed
+    let w = 0.1; // angular speed
     let angle = w * time + this.initialangle;
     this.posX = width / 2 + this.radius * sin(angle);
 

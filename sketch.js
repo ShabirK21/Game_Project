@@ -20,6 +20,8 @@ var canyons;
 var collectables;
 var snowflakes;
 
+var score = 0;
+
 var gameMode;
 //Main Functions
 
@@ -58,7 +60,7 @@ function setup() {
     leafH: 50,
   };
 
-  clouds = [
+  /*clouds = [
     {
       x1: 100,
       y1: 100,
@@ -83,7 +85,7 @@ function setup() {
       w: 80,
       h: 80,
     },
-  ];
+  ];*/
 
   mountain = [
     {
@@ -127,6 +129,8 @@ function setup() {
   ];
 
   snowflakes = [];
+  clouds = [];
+  initClouds();
 }
 
 function draw() {
