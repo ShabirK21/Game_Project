@@ -19,6 +19,8 @@ var trees_x;
 var canyons;
 var collectables;
 var snowflakes;
+var icicles;
+let currentScale;
 
 var score = 0;
 
@@ -41,13 +43,7 @@ function setup() {
   gameMode = 1;
 
   scrollPos = 0;
-
-  collectables = [
-    { x_pos: 200, y_pos: floorPos_y, size: 40, isFound: false },
-    { x_pos: 100, y_pos: floorPos_y, size: 40, isFound: false },
-    { x_pos: 0, y_pos: floorPos_y, size: 40, isFound: false },
-  ];
-
+  
   canyons = [{ x_pos: 250, width: 100 }];
 
   trees_x = [500];
@@ -59,33 +55,6 @@ function setup() {
     leafW: 50,
     leafH: 50,
   };
-
-  /*clouds = [
-    {
-      x1: 100,
-      y1: 100,
-      w: 80,
-      h: 80,
-    },
-    {
-      x1: 300,
-      y1: 80,
-      w: 80,
-      h: 80,
-    },
-    {
-      x1: 500,
-      y1: 88,
-      w: 80,
-      h: 80,
-    },
-    {
-      x1: 1000,
-      y1: 70,
-      w: 80,
-      h: 80,
-    },
-  ];*/
 
   mountain = [
     {
@@ -131,6 +100,11 @@ function setup() {
   snowflakes = [];
   clouds = [];
   initClouds();
+
+  collectables = [];
+  initCollectables();
+
+  icicles = [];
 }
 
 function draw() {
@@ -168,6 +142,7 @@ function gamePlay() {
   drawCanyons();
   drawSnow();
   drawCollectables();
+  drawIcicle();
   pop();
 
   //Draw the Game Character
@@ -226,7 +201,7 @@ function keyPressed() {
     isRight = true;
   } else if (keyCode == 38) {
     if (gameChar_y >= floorPos_y) {
-      gameChar_y -= 50;
+      gameChar_y -= 100;
     }
   }
 

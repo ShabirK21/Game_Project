@@ -3,12 +3,27 @@ function drawClouds() {
   for (var i = 0; i < clouds.length; i++) {
     fill(255, 255, 255);
     noStroke();
-    ellipse(clouds[i].x1, clouds[i].y1, clouds[i].w, clouds[i].h);
-    ellipse(clouds[i].x1 + 10, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
-    ellipse(clouds[i].x1 - 20, clouds[i].y1 + 10, clouds[i].w, clouds[i].h);
-    clouds[i].x1 -= 1;
-    if (clouds[i].x1 < 0 - scrollPos) {
-      clouds[i].x1 = width;
+    ellipse(
+      clouds[i].x_pos,
+      clouds[i].y_pos,
+      clouds[i].width,
+      clouds[i].height
+    );
+    ellipse(
+      clouds[i].x_pos + 10,
+      clouds[i].y_pos + 10,
+      clouds[i].width,
+      clouds[i].height
+    );
+    ellipse(
+      clouds[i].x_pos - 20,
+      clouds[i].y_pos + 10,
+      clouds[i].width,
+      clouds[i].height
+    );
+    clouds[i].x_pos -= clouds[i].speed;
+    if (clouds[i].x_pos < 0 - scrollPos) {
+      clouds[i].x_pos = width;
     }
   }
 }
@@ -18,8 +33,9 @@ function initClouds() {
     var x = random(10, width - 10);
     var y = random(20, 80);
     var w = random(40, 70);
-    var s = random(05, 2);
-    var cloud = { x_pos: x, y_pos: y, width: w, speed: s };
+    var s = random(0.5, 2);
+    var h = random(20, 50);
+    var cloud = { x_pos: x, y_pos: y, width: w, height: w, speed: s };
     clouds.push(cloud);
   }
 }
@@ -134,4 +150,41 @@ function snowflake() {
   this.display = function () {
     ellipse(this.posX, this.posY, this.size);
   };
+}
+
+function drawIcicle() {
+  for (let i = 0; i < 8; i++) {
+    icicles.push(new icicle());
+  }
+
+  for (let icicle of icicles) {
+    icicle.update();
+    icicle.show();
+  }
+}
+
+class icicle {
+  constructor() {
+    this.x = random(0, width);
+    this.y = random(30, 200);
+    this.scaler = 1 - this.y / 100;
+    this.timer = round(random(10, 300));
+  }
+  update() {
+    if (this.timer >= 0) {
+      this.timer -= 1;
+    }
+  }
+
+  show() {
+    push();
+    translate(this.x, this.y);
+    scale(this.scaler);
+    currentScale = this.scaler;
+    for (let i = 0; i > -10; i -= 5) {
+      fill(0, 200 + i);
+      ellipse(0 - i / 10, i, i * 0.5, 2 - i / 5);
+    }
+    pop();
+  }
 }

@@ -1,4 +1,5 @@
 //Interactivity Functions
+//Collectable Functions
 function checkIfGameCharInCollectablesRange() {
   for (var i = 0; i < collectables.length; i++) {
     var collectable = collectables[i];
@@ -35,6 +36,36 @@ function drawCollectable(collectable) {
   }
 }
 
+function initCollectables() {
+  for (var i = 0; i < 100; i++) {
+    var x = random(-2000, 2000);
+    var collectable = {
+      x_pos: x,
+      y_pos: floorPos_y,
+      size: 40,
+      isFound: false,
+    };
+    if(!checkIfCollectableOverCanyon(collectable)){
+      collectables.push(collectable);
+  }
+}
+}
+
+function checkIfCollectableOverCanyon(collectable) {
+  var onCanyon = false;
+  for (i in canyons) {
+    var x1_limit = canyons[i].x_pos - collectable.size;
+    var x2_limit = canyons[i].x_pos + canyons[i].width;
+    if (collectable.x_pos > x1_limit && collectable.x_pos < x2_limit) {
+      onCanyon = true;
+      break;
+    }
+  }
+  return onCanyon;
+}
+// End Of Collectable Functions
+
+//Canon Functions
 function drawCanyons() {
   for (var i = 0; i < canyons.length; i++) {
     var canyon = canyons[i];
@@ -64,3 +95,4 @@ function checkIfGameCharIsOverCanyon(canyon) {
     isPlummeting = true;
   }
 }
+//End of Canon Functions
