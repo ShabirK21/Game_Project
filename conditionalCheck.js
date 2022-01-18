@@ -1,4 +1,5 @@
 //Interactivity Functions
+
 //Collectable Functions
 function checkIfGameCharInCollectablesRange() {
   for (var i = 0; i < collectables.length; i++) {
@@ -106,6 +107,73 @@ function checkIfGameCharIsOverCanyon(canyon) {
 
   if (cond1 && cond2 && cond3) {
     isPlummeting = true;
+    char_lives--;
   }
 }
-//End of Canon Functions
+//End of Canyon Functions
+
+//Drawing character lives
+function drawLives() {
+  fill(255, 0, 0);
+  for (var i = 0; i < char_lives; i++) {
+    text("♥", 900 + i * 50, 30);
+  }
+}
+
+//Check if character dead and re-spawn when lives are greater than 0
+function checkIfCharacterDead() {
+  if (gameChar_y > height) {
+    if (char_lives > 0) {
+      game_setup();
+      gameMode = 2;
+      text("You have " + char_lives + " lives left", width / 2, height / 2);
+    }
+  }
+}
+
+//Draw flagpole and flag and end game if flagpole is reached
+
+function drawFlagpole() {
+  fill(0);
+  noStroke();
+  rect(flagpole.x_pos, floorPos_y - flagpole.height, 15, flagpole.height);
+  fill(255);
+  if (
+    gameChar_world_x > flagpole.x_pos &&
+    gameChar_world_x < flagpole.x_pos + 100 &&
+    game_score > 3
+  ) {
+    flagpole.isReached = true;
+  }
+
+  if (flagpole.isReached) {
+    rect(flagpole.x_pos, floorPos_y - flagpole.height, 100, 50);
+  } else {
+    rect(flagpole.x_pos, floorPos_y - 50, 100, 50);
+  }
+}
+
+//Check if character has reached flagpole or lost all lives
+function checkIsGameOver() {
+  var gameOver = false;
+
+  if (flagpole.isReached == true || char_lives < 1) {
+    gameOver = true;
+  }
+
+  return gameOver;
+}
+
+//Print game over message
+function drawGameOver() {
+  fill(0);
+  textSize(30);
+  text("Game Over", width / 2 - 100, height / 2);
+
+  if (char_lives > 0) {
+    text("You Win!", width / 2 - 100, height / 2 + 50);
+  } else {
+    gameChar_y += 2;
+    text("You Lose!", width / 2 - 100, height / 2 + 50);
+  }
+}

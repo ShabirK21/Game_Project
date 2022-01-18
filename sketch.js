@@ -23,6 +23,7 @@ var icicles;
 let currentScale;
 
 var game_score;
+var char_lives;
 
 var gameMode;
 // Main Functions
@@ -30,6 +31,13 @@ var gameMode;
 function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
+
+  char_lives = 3;
+
+  game_setup();
+}
+
+function game_setup() {
   gameChar_x = width / 2;
   gameChar_y = floorPos_y;
   gameChar_width = 50;
@@ -106,6 +114,9 @@ function setup() {
   initCollectables();
 
   icicles = [];
+
+  flagpole = { x_pos: 1100, height: 300, speed: 0.2, isReached: false };
+  snowman = { x_pos: 150, y_pos: floorPos_y - 50, width: 100, height: 100 };
 }
 
 function draw() {
@@ -141,11 +152,14 @@ function gamePlay() {
   drawClouds();
   drawTree();
   drawCanyons();
+  drawSnowman();
   drawSnow();
   drawCollectables();
-  drawIcicle();
+  //drawIcicle();
+  drawFlagpole();
   pop();
   drawGameScore();
+  drawLives();
 
   // Draw the Game Character
   if (isLeft && isFalling) {
@@ -163,10 +177,15 @@ function gamePlay() {
   }
 
   // Interaction
+  var IsGameOver = checkIsGameOver();
+  if (IsGameOver == true) {
+    drawGameOver();
+    return;
+  }
+
   if (isPlummeting == true) {
     gameChar_y += 5;
-    textSize(50);
-    text("You Died", 500, 300);
+    checkIfCharacterDead();
     return;
   }
 

@@ -158,7 +158,7 @@ function snowflake() {
     ellipse(this.posX, this.posY, this.size);
   };
 }
-
+/*
 // Icicle Initialization & Drawing
 function drawIcicle() {
   for (let i = 0; i < 8; i++) {
@@ -194,5 +194,54 @@ class icicle {
       ellipse(0 - i / 10, i, i * 0.5, 2 - i / 5);
     }
     pop();
+  }
+}*/
+
+function drawSnowman() {
+  for (var i = 0; i < 5; i++) {
+    //snowman
+    fill(255);
+    noStroke();
+    ellipse(snowman.x_pos, snowman.y_pos, snowman.width, snowman.height);
+    ellipse(
+      snowman.x_pos,
+      snowman.y_pos - 50,
+      snowman.width - 30,
+      snowman.height - 30
+    );
+    ellipse(
+      snowman.x_pos,
+      snowman.y_pos - 100,
+      snowman.width - 40,
+      snowman.height - 40
+    );
+
+    fill(0);
+    //eyes
+    ellipse(snowman.x_pos - 10, snowman.y_pos - 105, 5, 5);
+    ellipse(snowman.x_pos + 10, snowman.y_pos - 105, 5, 5);
+
+    //carrot
+    fill(255, 165, 0);
+    triangle(
+      snowman.x_pos,
+      snowman.y_pos - 100,
+      snowman.x_pos,
+      snowman.y_pos - 90,
+      snowman.x_pos + 40,
+      snowman.y_pos - 85
+    );
+
+    //arms
+    stroke(139, 69, 19);
+    strokeWeight(5);
+    line(snowman.x_pos - 30, snowman.y_pos - 50, 80, 350);
+    line(snowman.x_pos + 30, snowman.y_pos - 50, 220, 350);
+
+    //buttons
+    fill(0);
+    ellipse(snowman.x_pos, snowman.y_pos - 60, 7, 7);
+    ellipse(snowman.x_pos, snowman.y_pos - 40, 7, 7);
+    ellipse(snowman.x_pos, snowman.y_pos - 20, 7, 7);
   }
 }
