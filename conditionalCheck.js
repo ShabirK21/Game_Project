@@ -45,10 +45,10 @@ function initCollectables() {
       size: 40,
       isFound: false,
     };
-    if(!checkIfCollectableOverCanyon(collectable)){
+    if (!checkIfCollectableOverCanyon(collectable)) {
       collectables.push(collectable);
+    }
   }
-}
 }
 
 function checkIfCollectableOverCanyon(collectable) {

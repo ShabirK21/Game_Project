@@ -1,6 +1,11 @@
-//Scenery Functions
+/* eslint-disable no-unused-vars */
+/* eslint-disable require-jsdoc */
+// Scenery Functions
+
+// Clouds Initialization & Drawing
+// eslint-disable-next-line require-jsdoc
 function drawClouds() {
-  for (var i = 0; i < clouds.length; i++) {
+  for (let i = 0; i < clouds.length; i++) {
     fill(255, 255, 255);
     noStroke();
     ellipse(
@@ -29,19 +34,19 @@ function drawClouds() {
 }
 
 function initClouds() {
-  for (var i = 0; i < 10; i++) {
-    var x = random(10, width - 10);
-    var y = random(20, 80);
-    var w = random(40, 70);
-    var s = random(0.5, 2);
-    var h = random(20, 50);
-    var cloud = { x_pos: x, y_pos: y, width: w, height: w, speed: s };
+  for (let i = 0; i < 10; i++) {
+    const x = random(10, width - 10);
+    const y = random(20, 80);
+    const w = random(40, 70);
+    const s = random(0.5, 2);
+    const cloud = { x_pos: x, y_pos: y, width: w, height: w, speed: s };
     clouds.push(cloud);
   }
 }
 
+// Tree Drawing
 function drawTree() {
-  for (var i = 0; i < trees_x.length; i++) {
+  for (let i = 0; i < trees_x.length; i++) {
     fill(139, 69, 19);
     noStroke();
     rect(trees_x[i], tree.trunkY, tree.trunkW, tree.trunkH);
@@ -73,9 +78,10 @@ function drawTree() {
   }
 }
 
+// Mountain Drawing
 function drawMountain() {
   noStroke();
-  for (var i = 0; i < mountain.length; i++) {
+  for (let i = 0; i < mountain.length; i++) {
     fill(mountain[i].color);
     triangle(
       mountain[i].x1,
@@ -98,8 +104,9 @@ function drawMountain() {
   }
 }
 
+// Snowflake Initialization & Drawing
 function drawSnow() {
-  let t = frameCount / 60; // update time
+  const t = frameCount / 60; // update time
 
   // create a random number of snowflakes each frame
   for (let i = 0; i < random(5); i++) {
@@ -107,13 +114,13 @@ function drawSnow() {
   }
 
   // loop through snowflakes with a for..of loop
-  for (let flake of snowflakes) {
+  for (const flake of snowflakes) {
     flake.update(t); // update snowflake position
     flake.display(); // draw snowflake
   }
 }
 
-/// snowflake class
+// / snowflake class
 function snowflake() {
   fill(255, 250, 250);
   noStroke();
@@ -133,8 +140,8 @@ function snowflake() {
 
   this.update = function (time) {
     // x position follows a circle
-    let w = 0.1; // angular speed
-    let angle = w * time + this.initialangle;
+    const w = 0.1; // angular speed
+    const angle = w * time + this.initialangle;
     this.posX = width / 2 + this.radius * sin(angle);
 
     // different size snowflakes fall at slightly different y speeds
@@ -142,7 +149,7 @@ function snowflake() {
 
     // delete snowflake if past end of screen
     if (this.posY > height) {
-      let index = snowflakes.indexOf(this);
+      const index = snowflakes.indexOf(this);
       snowflakes.splice(index, 1);
     }
   };
@@ -152,12 +159,13 @@ function snowflake() {
   };
 }
 
+// Icicle Initialization & Drawing
 function drawIcicle() {
   for (let i = 0; i < 8; i++) {
     icicles.push(new icicle());
   }
 
-  for (let icicle of icicles) {
+  for (const icicle of icicles) {
     icicle.update();
     icicle.show();
   }

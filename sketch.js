@@ -25,7 +25,7 @@ let currentScale;
 var score = 0;
 
 var gameMode;
-//Main Functions
+// Main Functions
 
 function setup() {
   createCanvas(1024, 576);
@@ -43,7 +43,7 @@ function setup() {
   gameMode = 1;
 
   scrollPos = 0;
-  
+
   canyons = [{ x_pos: 250, width: 100 }];
 
   trees_x = [500];
@@ -135,7 +135,7 @@ function gamePlay() {
   push();
   translate(scrollPos, 0);
 
-  //Draw the scenery
+  // Draw the scenery
   drawMountain();
   drawClouds();
   drawTree();
@@ -145,7 +145,7 @@ function gamePlay() {
   drawIcicle();
   pop();
 
-  //Draw the Game Character
+  // Draw the Game Character
   if (isLeft && isFalling) {
     drawJumpLeft();
   } else if (isRight && isFalling) {
@@ -160,7 +160,7 @@ function gamePlay() {
     drawFacingFront();
   }
 
-  //Interaction
+  // Interaction
   if (isPlummeting == true) {
     gameChar_y += 5;
     textSize(50);
@@ -193,7 +193,7 @@ function gamePlay() {
   checkIfGameCharIsOverCanyons();
 }
 
-//Move Character Functions
+// Move Character Functions
 function keyPressed() {
   if (keyCode == 37) {
     isLeft = true;
