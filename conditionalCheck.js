@@ -8,15 +8,28 @@ function checkIfGameCharInCollectablesRange() {
 }
 
 function checkIfGameCharInCollectableRange(collectable) {
-  var d = dist(
-    gameChar_world_x,
-    gameChar_y,
-    collectable.x_pos,
-    collectable.y_pos
-  );
-  if (d < 20) {
-    collectable.isFound = true;
+  for (var i = 0; i < collectables.length; i++) {
+    if (collectables[i].isFound == false) {
+      if (
+        dist(
+          gameChar_world_x,
+          gameChar_y,
+          collectables[i].x_pos + 15,
+          collectables[i].y_pos
+        ) < 20
+      ) {
+        collectables[i].isFound = true;
+        game_score++;
+        console.log(game_score);
+      }
+    }
   }
+}
+
+function drawGameScore() {
+  fill(0);
+  textSize(32);
+  text("Score: " + game_score, 30, 30);
 }
 
 function drawCollectables() {

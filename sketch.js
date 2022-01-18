@@ -22,7 +22,7 @@ var snowflakes;
 var icicles;
 let currentScale;
 
-var score = 0;
+var game_score;
 
 var gameMode;
 // Main Functions
@@ -41,6 +41,7 @@ function setup() {
   isPlummeting = false;
 
   gameMode = 1;
+  game_score = 0;
 
   scrollPos = 0;
 
@@ -144,6 +145,7 @@ function gamePlay() {
   drawCollectables();
   drawIcicle();
   pop();
+  drawGameScore();
 
   // Draw the Game Character
   if (isLeft && isFalling) {
