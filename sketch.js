@@ -22,13 +22,15 @@ let collectables;
 let snowflakes;
 let canyon_icicle;
 let currentScale;
-
+// other variables
 let game_score;
 let char_lives;
 let img;
 let gameMode;
+
 // Main Functions
 
+// setup function calling game setup
 function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
@@ -38,10 +40,12 @@ function setup() {
   game_setup();
 }
 
+// Preload splash screen image
 function preload() {
   img = loadImage('/SplashScreenBG.jpg');
 }
 
+// Call all splashscreen and main game functions
 function draw() {
   if (gameMode == 1) {
     splashScreen();
@@ -50,6 +54,7 @@ function draw() {
   }
 }
 
+// Spash screen
 function splashScreen() {
   image(img, 0, 0, width, height);
   if (frameCount % 60 < 30) {
@@ -62,6 +67,7 @@ function splashScreen() {
   }
 }
 
+// Main game function, calling all other functions
 function gamePlay() {
   background(100, 155, 255);
   noStroke();

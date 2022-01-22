@@ -136,7 +136,7 @@ function checkIfGameCharIsOverCanyon(canyon) {
 }
 // End of Canyon Functions
 
-// Drawing character lives
+// Drawing character health
 function drawLives() {
   fill(255, 0, 0);
   for (let i = 0; i < char_lives; i++) {
@@ -144,7 +144,7 @@ function drawLives() {
   }
 }
 
-// Check if character dead and re-spawn when lives are greater than 0
+// Check if character is dead and re-spawn when lives are greater than 0
 function checkIfCharacterDead() {
   if (gameChar_y > height) {
     if (char_lives > 0) {
@@ -156,7 +156,6 @@ function checkIfCharacterDead() {
 }
 
 // Draw flagpole and flag and end game if flagpole is reached
-
 function drawFlagpole() {
   fill(0);
   noStroke();
@@ -171,8 +170,10 @@ function drawFlagpole() {
   }
 
   if (flagpole.isReached) {
+    fill(46, 139, 87);
     rect(flagpole.x_pos, floorPos_y - flagpole.height, 100, 50);
   } else {
+    fill(220, 20, 60);
     rect(flagpole.x_pos, floorPos_y - 50, 100, 50);
   }
 }

@@ -25,7 +25,7 @@ function drawClouds() {
       clouds[i].height
     );
     clouds[i].x_pos += clouds[i].speed;
-    if (clouds[i].x_pos > width + clouds[i].width) {
+    if (clouds[i].x_pos > width + gameChar_world_x) {
       clouds[i].x_pos = -clouds[i].width;
     }
   }
@@ -44,34 +44,23 @@ function initClouds() {
 
 // Tree Drawing
 function drawTree() {
-  for (let i = 0; i < trees_x.length; i++) {
+  for (let i = 0; i < trees.length; i++) {
     fill(139, 69, 19);
     noStroke();
-    rect(trees_x[i], tree.trunkY, tree.trunkW, tree.trunkH);
-    fill(34, 139, 34);
-    triangle(
-      480,
-      floorPos_y - tree.trunkH + 20,
-      515,
-      300,
-      520 + tree.trunkW,
-      floorPos_y - tree.trunkH + 20
+    rect(
+      trees[i].trunkX,
+      trees[i].trunkY,
+      trees[i].trunkWidth,
+      trees[i].trunkHeight
     );
+    fill(0, 100, 0);
     triangle(
-      480,
-      floorPos_y - tree.trunkH,
-      515,
-      280,
-      520 + tree.trunkW,
-      floorPos_y - tree.trunkH
-    );
-    triangle(
-      480,
-      floorPos_y - tree.trunkH - 20,
-      515,
-      260,
-      520 + tree.trunkW,
-      floorPos_y - tree.trunkH - 20
+      trees[i].trunkX - 50,
+      trees[i].trunkY + 50,
+      trees[i].trunkX + trees[i].trunkWidth / 2,
+      trees[i].trunkY - 100,
+      trees[i].trunkX + trees[i].trunkWidth + 50,
+      trees[i].trunkY + 50
     );
   }
 }
@@ -130,7 +119,7 @@ function snowflake() {
 
   // radius of snowflake spiral
   // chosen so the snowflakes are uniformly spread out in area
-  if (isLeft) {
+  if (isRight) {
     this.radius = sqrt(random(pow(width - gameChar_world_x, 2)));
   } else {
     this.radius = sqrt(random(pow(width + gameChar_world_x, 2)));

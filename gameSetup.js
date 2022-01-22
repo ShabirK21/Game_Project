@@ -1,14 +1,16 @@
+
 function game_setup() {
+  // game character variable initialization
   gameChar_x = width / 2 - 400;
   gameChar_y = floorPos_y;
   gameChar_width = 50;
   gameChar_world_x = gameChar_x;
-
+  // character movement check initialization
   isLeft = false;
   isRight = false;
   isFalling = false;
   isPlummeting = false;
-
+  
   gameMode = 1;
   game_score = 0;
 
@@ -20,15 +22,21 @@ function game_setup() {
     { x_pos: width + 1300, width: 100 }
   ];
 
-  trees_x = [500];
-  tree = {
-    trunkX: trees_x - 100,
-    trunkY: floorPos_y - 100,
-    trunkW: 30,
-    trunkH: 100,
-    leafW: 50,
-    leafH: 50
-  };
+  trees = [
+    { trunkX: -50, trunkY: floorPos_y - 100, trunkWidth: 50, trunkHeight: 100 },
+    {
+      trunkX: 500,
+      trunkY: floorPos_y - 100,
+      trunkWidth: 50,
+      trunkHeight: 100
+    },
+    {
+      trunkX: width + 500,
+      trunkY: floorPos_y - 100,
+      trunkWidth: 50,
+      trunkHeight: 100
+    }
+  ];
 
   mountain = [
     {
