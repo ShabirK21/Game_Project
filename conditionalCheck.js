@@ -90,6 +90,57 @@ function drawCanyons() {
 function drawCanyon(canyon) {
   fill(100, 155, 255);
   rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
+  for (var i = 0; i < 5; i++) {
+    fill(102, 255, 255);
+    triangle(
+      canyon.x_pos,
+      height,
+      canyon.x_pos + 10,
+      height - 30,
+      canyon.x_pos + 20,
+      height
+    );
+    triangle(
+      canyon.x_pos + 10,
+      height,
+      canyon.x_pos + 20,
+      height - 30,
+      canyon.x_pos + 30,
+      height
+    );
+    triangle(
+      canyon.x_pos + 20,
+      height,
+      canyon.x_pos + 30,
+      height - 30,
+      canyon.x_pos + 40,
+      height
+    );
+    triangle(
+      canyon.x_pos + 30,
+      height,
+      canyon.x_pos + 40,
+      height - 30,
+      canyon.x_pos + 50,
+      height
+    );
+    triangle(
+      canyon.x_pos + 40,
+      height,
+      canyon.x_pos + 50,
+      height - 30,
+      canyon.x_pos + 60,
+      height
+    );
+    triangle(
+      canyon.x_pos + 50,
+      height,
+      canyon.x_pos + 60,
+      height - 30,
+      canyon.x_pos + 70,
+      height
+    );
+  }
 }
 
 function checkIfGameCharIsOverCanyons() {

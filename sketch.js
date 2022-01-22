@@ -24,7 +24,7 @@ let currentScale;
 
 var game_score;
 var char_lives;
-
+let img;
 var gameMode;
 // Main Functions
 
@@ -119,6 +119,10 @@ function game_setup() {
   snowman = { x_pos: 150, y_pos: floorPos_y - 50, width: 100, height: 100 };
 }
 
+function preload() {
+  img = loadImage("/SplashScreenBG.jpg");
+}
+
 function draw() {
   if (gameMode == 1) {
     splashScreen();
@@ -128,13 +132,14 @@ function draw() {
 }
 
 function splashScreen() {
-  background(255, 0, 0);
+  image(img, 0, 0, width, height);
   if (frameCount % 60 < 30) {
-    textFont("Helvetica");
+    fill(255, 0, 0);
+    textFont("Comic Sans MS");
     textSize(100);
-    text("Start", 300, 300);
+    text("Start", 400, 500);
     textSize(50);
-    text("Press Space or Enter to Start", 150, 400);
+    text("Press Space or Enter to Start", 150, 550);
   }
 }
 
@@ -212,29 +217,4 @@ function gamePlay() {
   gameChar_world_x = gameChar_x - scrollPos;
   checkIfGameCharInCollectablesRange();
   checkIfGameCharIsOverCanyons();
-}
-
-// Move Character Functions
-function keyPressed() {
-  if (keyCode == 37) {
-    isLeft = true;
-  } else if (keyCode == 39) {
-    isRight = true;
-  } else if (keyCode == 38) {
-    if (gameChar_y >= floorPos_y) {
-      gameChar_y -= 100;
-    }
-  }
-
-  if (keyCode == 13 || keyCode == 32) {
-    gameMode = 2;
-  }
-}
-
-function keyReleased() {
-  if (keyCode == 37) {
-    isLeft = false;
-  } else if (keyCode == 39) {
-    isRight = false;
-  }
 }
