@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable require-jsdoc */
 // Scenery Functions
 
 // Clouds Initialization & Drawing
-// eslint-disable-next-line require-jsdoc
+
 function drawClouds() {
   for (let i = 0; i < clouds.length; i++) {
     fill(255, 255, 255);
@@ -26,9 +24,9 @@ function drawClouds() {
       clouds[i].width,
       clouds[i].height
     );
-    clouds[i].x_pos -= clouds[i].speed;
-    if (clouds[i].x_pos < 0 - scrollPos) {
-      clouds[i].x_pos = width;
+    clouds[i].x_pos += clouds[i].speed;
+    if (clouds[i].x_pos > width + clouds[i].width) {
+      clouds[i].x_pos = -clouds[i].width;
     }
   }
 }
@@ -158,90 +156,68 @@ function snowflake() {
     ellipse(this.posX, this.posY, this.size);
   };
 }
-/*
-// Icicle Initialization & Drawing
-function drawIcicle() {
-  for (let i = 0; i < 8; i++) {
-    icicles.push(new icicle());
-  }
-
-  for (const icicle of icicles) {
-    icicle.update();
-    icicle.show();
-  }
-}
-
-class icicle {
-  constructor() {
-    this.x = random(0, width);
-    this.y = random(30, 200);
-    this.scaler = 1 - this.y / 100;
-    this.timer = round(random(10, 300));
-  }
-  update() {
-    if (this.timer >= 0) {
-      this.timer -= 1;
-    }
-  }
-
-  show() {
-    push();
-    translate(this.x, this.y);
-    scale(this.scaler);
-    currentScale = this.scaler;
-    for (let i = 0; i > -10; i -= 5) {
-      fill(0, 200 + i);
-      ellipse(0 - i / 10, i, i * 0.5, 2 - i / 5);
-    }
-    pop();
-  }
-}*/
 
 function drawSnowman() {
-  for (var i = 0; i < 5; i++) {
-    //snowman
+  for (var i = 0; i < snowman.length; i++) {
+    // snowman
     fill(255);
     noStroke();
-    ellipse(snowman.x_pos, snowman.y_pos, snowman.width, snowman.height);
     ellipse(
-      snowman.x_pos,
-      snowman.y_pos - 50,
-      snowman.width - 30,
-      snowman.height - 30
+      snowman[i].x_pos,
+      snowman[i].y_pos,
+      snowman[i].width,
+      snowman[i].height
     );
     ellipse(
-      snowman.x_pos,
-      snowman.y_pos - 100,
-      snowman.width - 40,
-      snowman.height - 40
+      snowman[i].x_pos,
+      snowman[i].y_pos - 50,
+      snowman[i].width - 30,
+      snowman[i].height - 30
+    );
+    ellipse(
+      snowman[i].x_pos,
+      snowman[i].y_pos - 100,
+      snowman[i].width - 40,
+      snowman[i].height - 40
     );
 
     fill(0);
-    //eyes
-    ellipse(snowman.x_pos - 10, snowman.y_pos - 105, 5, 5);
-    ellipse(snowman.x_pos + 10, snowman.y_pos - 105, 5, 5);
+    // eyes
+    ellipse(snowman[i].x_pos - 10, snowman[i].y_pos - 105, 5, 5);
+    ellipse(snowman[i].x_pos + 10, snowman[i].y_pos - 105, 5, 5);
 
-    //carrot
+    // carrot
     fill(255, 165, 0);
     triangle(
-      snowman.x_pos,
-      snowman.y_pos - 100,
-      snowman.x_pos,
-      snowman.y_pos - 90,
-      snowman.x_pos + 40,
-      snowman.y_pos - 85
+      snowman[i].x_pos,
+      snowman[i].y_pos - 100,
+      snowman[i].x_pos,
+      snowman[i].y_pos - 90,
+      snowman[i].x_pos + 40,
+      snowman[i].y_pos - 85
     );
 
-    //arms
-    stroke(139, 69, 19);
+    // hands
+    stroke(160, 82, 45);
     strokeWeight(5);
-    line(snowman.x_pos - 30, snowman.y_pos - 50, 80, 350);
-    line(snowman.x_pos + 30, snowman.y_pos - 50, 220, 350);
+    line(
+      snowman[i].x_pos - 80,
+      snowman[i].y_pos - 100,
+      snowman[i].x_pos - 30,
+      snowman[i].y_pos - 50
+    );
+    line(
+      snowman[i].x_pos + 80,
+      snowman[i].y_pos - 100,
+      snowman[i].x_pos + 30,
+      snowman[i].y_pos - 50
+    );
 
-    //buttons
+    // buttons
     fill(0);
-    ellipse(snowman.x_pos, snowman.y_pos - 60, 7, 7);
-    ellipse(snowman.x_pos, snowman.y_pos - 40, 7, 7);
-    ellipse(snowman.x_pos, snowman.y_pos - 20, 7, 7);
+    noStroke();
+    ellipse(snowman[i].x_pos, snowman[i].y_pos - 60, 7, 7);
+    ellipse(snowman[i].x_pos, snowman[i].y_pos - 40, 7, 7);
+    ellipse(snowman[i].x_pos, snowman[i].y_pos - 20, 7, 7);
   }
 }

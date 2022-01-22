@@ -1,15 +1,15 @@
-//Interactivity Functions
+// Interactivity Functions
 
-//Collectable Functions
+// Collectable Functions
 function checkIfGameCharInCollectablesRange() {
-  for (var i = 0; i < collectables.length; i++) {
-    var collectable = collectables[i];
+  for (let i = 0; i < collectables.length; i++) {
+    const collectable = collectables[i];
     checkIfGameCharInCollectableRange(collectable);
   }
 }
 
 function checkIfGameCharInCollectableRange(collectable) {
-  for (var i = 0; i < collectables.length; i++) {
+  for (let i = 0; i < collectables.length; i++) {
     if (collectables[i].isFound == false) {
       if (
         dist(
@@ -21,7 +21,6 @@ function checkIfGameCharInCollectableRange(collectable) {
       ) {
         collectables[i].isFound = true;
         game_score++;
-        console.log(game_score);
       }
     }
   }
@@ -30,12 +29,12 @@ function checkIfGameCharInCollectableRange(collectable) {
 function drawGameScore() {
   fill(0);
   textSize(32);
-  text("Score: " + game_score, 30, 30);
+  text(`Score: ${game_score}`, 30, 30);
 }
 
 function drawCollectables() {
-  for (var i = 0; i < collectables.length; i++) {
-    var collectable = collectables[i];
+  for (let i = 0; i < collectables.length; i++) {
+    const collectable = collectables[i];
     drawCollectable(collectable);
   }
 }
@@ -51,13 +50,13 @@ function drawCollectable(collectable) {
 }
 
 function initCollectables() {
-  for (var i = 0; i < 100; i++) {
-    var x = random(-2000, 2000);
-    var collectable = {
+  for (let i = 0; i < 10; i++) {
+    const x = random(0, width + 1100);
+    const collectable = {
       x_pos: x,
       y_pos: floorPos_y,
       size: 40,
-      isFound: false,
+      isFound: false
     };
     if (!checkIfCollectableOverCanyon(collectable)) {
       collectables.push(collectable);
@@ -66,10 +65,10 @@ function initCollectables() {
 }
 
 function checkIfCollectableOverCanyon(collectable) {
-  var onCanyon = false;
+  let onCanyon = false;
   for (i in canyons) {
-    var x1_limit = canyons[i].x_pos - collectable.size;
-    var x2_limit = canyons[i].x_pos + canyons[i].width;
+    const x1_limit = canyons[i].x_pos - collectable.size;
+    const x2_limit = canyons[i].x_pos + canyons[i].width;
     if (collectable.x_pos > x1_limit && collectable.x_pos < x2_limit) {
       onCanyon = true;
       break;
@@ -79,10 +78,10 @@ function checkIfCollectableOverCanyon(collectable) {
 }
 // End Of Collectable Functions
 
-//Canon Functions
+// Canyon Functions
 function drawCanyons() {
-  for (var i = 0; i < canyons.length; i++) {
-    var canyon = canyons[i];
+  for (let i = 0; i < canyons.length; i++) {
+    const canyon = canyons[i];
     drawCanyon(canyon);
   }
 }
@@ -90,99 +89,73 @@ function drawCanyons() {
 function drawCanyon(canyon) {
   fill(100, 155, 255);
   rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
-  for (var i = 0; i < 5; i++) {
-    fill(102, 255, 255);
-    triangle(
-      canyon.x_pos,
-      height,
-      canyon.x_pos + 10,
-      height - 30,
-      canyon.x_pos + 20,
-      height
-    );
-    triangle(
-      canyon.x_pos + 10,
-      height,
-      canyon.x_pos + 20,
-      height - 30,
-      canyon.x_pos + 30,
-      height
-    );
-    triangle(
-      canyon.x_pos + 20,
-      height,
-      canyon.x_pos + 30,
-      height - 30,
-      canyon.x_pos + 40,
-      height
-    );
-    triangle(
-      canyon.x_pos + 30,
-      height,
-      canyon.x_pos + 40,
-      height - 30,
-      canyon.x_pos + 50,
-      height
-    );
-    triangle(
-      canyon.x_pos + 40,
-      height,
-      canyon.x_pos + 50,
-      height - 30,
-      canyon.x_pos + 60,
-      height
-    );
-    triangle(
-      canyon.x_pos + 50,
-      height,
-      canyon.x_pos + 60,
-      height - 30,
-      canyon.x_pos + 70,
-      height
-    );
-  }
+  fill(102, 255, 255);
+  triangle(
+    canyon.x_pos,
+    height,
+    canyon.x_pos + 15,
+    height - 100,
+    canyon.x_pos + 30,
+    height
+  );
+  triangle(
+    canyon.x_pos + 30,
+    height,
+    canyon.x_pos + 45,
+    height - 100,
+    canyon.x_pos + 60,
+    height
+  );
+  triangle(
+    canyon.x_pos + 60,
+    height,
+    canyon.x_pos + 75,
+    height - 100,
+    canyon.x_pos + 90,
+    height
+  );
 }
 
 function checkIfGameCharIsOverCanyons() {
-  for (var i = 0; i < canyons.length; i++) {
-    var canyon = canyons[i];
+  for (let i = 0; i < canyons.length; i++) {
+    const canyon = canyons[i];
     checkIfGameCharIsOverCanyon(canyon);
   }
 }
 
 function checkIfGameCharIsOverCanyon(canyon) {
-  var cond1 = gameChar_y == floorPos_y; //gameChar is on the floor
-  var cond2 = gameChar_world_x - gameChar_width / 2 > canyon.x_pos; //gameChar is to the right of the canyon
-  var cond3 =
-    gameChar_world_x + gameChar_width / 2 < canyon.x_pos + canyon.width; //gameChar is to the left of the canyon
+  const cond1 = gameChar_y == floorPos_y; // gameChar is on the floor
+  const cond2 = gameChar_world_x - gameChar_width / 2 > canyon.x_pos; // gameChar is to the right of the canyon
+  const cond3 =
+    gameChar_world_x + gameChar_width / 2 < canyon.x_pos + canyon.width; // gameChar is to the left of the canyon
 
   if (cond1 && cond2 && cond3) {
     isPlummeting = true;
     char_lives--;
   }
 }
-//End of Canyon Functions
+// End of Canyon Functions
 
-//Drawing character lives
+// Drawing character lives
 function drawLives() {
   fill(255, 0, 0);
-  for (var i = 0; i < char_lives; i++) {
-    text("♥", 900 + i * 50, 30);
+  for (let i = 0; i < char_lives; i++) {
+    text('♥', 900 + i * 50, 30);
   }
 }
 
-//Check if character dead and re-spawn when lives are greater than 0
+// Check if character dead and re-spawn when lives are greater than 0
 function checkIfCharacterDead() {
   if (gameChar_y > height) {
     if (char_lives > 0) {
       game_setup();
       gameMode = 2;
-      text("You have " + char_lives + " lives left", width / 2, height / 2);
+      text(`You have ${char_lives} lives left`, width / 2, height / 2);
     }
   }
 }
 
-//Draw flagpole and flag and end game if flagpole is reached
+// Draw flagpole and flag and end game if flagpole is reached
 
 function drawFlagpole() {
   fill(0);
@@ -204,9 +177,9 @@ function drawFlagpole() {
   }
 }
 
-//Check if character has reached flagpole or lost all lives
+// Check if character has reached flagpole or lost all lives
 function checkIsGameOver() {
-  var gameOver = false;
+  let gameOver = false;
 
   if (flagpole.isReached == true || char_lives < 1) {
     gameOver = true;
@@ -215,16 +188,16 @@ function checkIsGameOver() {
   return gameOver;
 }
 
-//Print game over message
+// Print game over message
 function drawGameOver() {
   fill(0);
   textSize(30);
-  text("Game Over", width / 2 - 100, height / 2);
+  text('Game Over', width / 2 - 100, height / 2);
 
   if (char_lives > 0) {
-    text("You Win!", width / 2 - 100, height / 2 + 50);
+    text('You Win!', width / 2 - 100, height / 2 + 50);
   } else {
     gameChar_y += 2;
-    text("You Lose!", width / 2 - 100, height / 2 + 50);
+    text('You Lose!', width / 2 - 100, height / 2 + 50);
   }
 }
