@@ -33,7 +33,7 @@ function drawClouds() {
 
 function initClouds() {
   for (let i = 0; i < 10; i++) {
-    const x = random(10, width - 10);
+    const x = random(-100, width - 10);
     const y = random(20, 80);
     const w = random(40, 70);
     const s = random(0.5, 2);
@@ -119,7 +119,7 @@ function snowflake() {
 
   // radius of snowflake spiral
   // chosen so the snowflakes are uniformly spread out in area
-  this.radius = sqrt(random(pow(width +2000, 2)))
+  this.radius = sqrt(random(pow(width + 2000, 2)));
 
   this.update = function (time) {
     // x position follows a circle
@@ -205,4 +205,16 @@ function drawSnowman() {
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 40, 7, 7);
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 20, 7, 7);
   }
+}
+
+function drawSun() {
+  initSun(width / 2 + 460, height / 2 - 240);
+}
+
+function initSun(x, y) {
+  fill(SUN_COLOR);
+  drawingContext.shadowBlur = SUN_GLOW;
+  drawingContext.shadowColor = SUN_COLOR;
+  circle(x, y, SUN_RADIUS * 2);
+  drawingContext.shadowBlur = 0;
 }

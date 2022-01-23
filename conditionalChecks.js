@@ -87,7 +87,7 @@ function drawCanyons() {
 }
 
 function drawCanyon(canyon) {
-  fill(100, 155, 255);
+  fill('#B1E8FF');
   rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
   fill(102, 255, 255);
   triangle(

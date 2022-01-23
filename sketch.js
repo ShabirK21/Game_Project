@@ -27,6 +27,12 @@ let game_score;
 let char_lives;
 let img;
 let gameMode;
+// background
+const SKY_SPACE = 0.4;
+const SUN_COLOR = '#FFF2AD';
+const SUN_GLOW = 25;
+const SUN_RADIUS = 50;
+
 
 // Main Functions
 
@@ -69,7 +75,8 @@ function splashScreen() {
 
 // Main game function, calling all other functions
 function gamePlay() {
-  background(100, 155, 255);
+  background('#B1E8FF');
+  drawSun();
   noStroke();
   fill(255, 250, 250);
   rect(0, floorPos_y, width, height - floorPos_y);
