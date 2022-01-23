@@ -119,11 +119,7 @@ function snowflake() {
 
   // radius of snowflake spiral
   // chosen so the snowflakes are uniformly spread out in area
-  if (isRight) {
-    this.radius = sqrt(random(pow(width - gameChar_world_x, 2)));
-  } else {
-    this.radius = sqrt(random(pow(width + gameChar_world_x, 2)));
-  }
+  this.radius = sqrt(random(pow(width +2000, 2)))
 
   this.update = function (time) {
     // x position follows a circle
