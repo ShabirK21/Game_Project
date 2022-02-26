@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 // Game Character Functions
 function drawFacingFront() {
   fill(0);

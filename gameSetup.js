@@ -1,4 +1,3 @@
-
 function game_setup() {
   // game character variable initialization
   gameChar_x = width / 2 - 400;
@@ -10,7 +9,7 @@ function game_setup() {
   isRight = false;
   isFalling = false;
   isPlummeting = false;
-  
+
   gameMode = 1;
   game_score = 0;
 
@@ -19,7 +18,7 @@ function game_setup() {
   canyons = [
     { x_pos: 250, width: 100 },
     { x_pos: 1250, width: 100 },
-    { x_pos: width + 1300, width: 100 }
+    { x_pos: width + 1300, width: 100 },
   ];
 
   trees = [
@@ -28,14 +27,14 @@ function game_setup() {
       trunkX: 500,
       trunkY: floorPos_y - 100,
       trunkWidth: 50,
-      trunkHeight: 100
+      trunkHeight: 100,
     },
     {
       trunkX: width + 500,
       trunkY: floorPos_y - 100,
       trunkWidth: 50,
-      trunkHeight: 100
-    }
+      trunkHeight: 100,
+    },
   ];
 
   mountain = [
@@ -56,7 +55,7 @@ function game_setup() {
       snowcapX4: 723 - width + 100,
       snowcapY4: 187,
       snowcapX5: 665 - width + 100,
-      snowcapY5: 225
+      snowcapY5: 225,
     },
     {
       x1: width / 2 + 100 - width,
@@ -75,7 +74,7 @@ function game_setup() {
       snowcapX4: 573 - width,
       snowcapY4: 287,
       snowcapX5: 505 - width,
-      snowcapY5: 325
+      snowcapY5: 325,
     },
     {
       x1: width / 2 + 240,
@@ -94,7 +93,7 @@ function game_setup() {
       snowcapX4: 723,
       snowcapY4: 187,
       snowcapX5: 665,
-      snowcapY5: 225
+      snowcapY5: 225,
     },
     {
       x1: width / 2 + 100,
@@ -113,7 +112,7 @@ function game_setup() {
       snowcapX4: 573,
       snowcapY4: 287,
       snowcapX5: 505,
-      snowcapY5: 325
+      snowcapY5: 325,
     },
     {
       x1: width / 2 + 240 + width,
@@ -132,7 +131,7 @@ function game_setup() {
       snowcapX4: 723 + width,
       snowcapY4: 187,
       snowcapX5: 665 + width,
-      snowcapY5: 225
+      snowcapY5: 225,
     },
     {
       x1: width / 2 + 100 + width,
@@ -151,21 +150,21 @@ function game_setup() {
       snowcapX4: 573 + width,
       snowcapY4: 287,
       snowcapX5: 505 + width,
-      snowcapY5: 325
-    }
+      snowcapY5: 325,
+    },
   ];
 
   snowflakes = [];
   clouds = [];
-  initClouds();
+  Clouds.createClouds();
 
   collectables = [];
-  initCollectables();
+  Collectables.initCollectables();
 
   flagpole = { x_pos: width + 1500, height: 300, speed: 0.2, isReached: false };
   snowman = [
     { x_pos: 150, y_pos: floorPos_y - 50, width: 100, height: 100 },
     { x_pos: 1050, y_pos: floorPos_y - 50, width: 100, height: 100 },
-    { x_pos: width + 1100, y_pos: floorPos_y - 50, width: 100, height: 100 }
+    { x_pos: width + 1100, y_pos: floorPos_y - 50, width: 100, height: 100 },
   ];
 }

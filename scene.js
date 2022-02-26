@@ -1,46 +1,48 @@
 // Scenery Functions
 
 // Clouds Initialization & Drawing
-
-function drawClouds() {
-  for (let i = 0; i < clouds.length; i++) {
-    fill(255, 255, 255);
-    noStroke();
-    ellipse(
-      clouds[i].x_pos,
-      clouds[i].y_pos,
-      clouds[i].width,
-      clouds[i].height
-    );
-    ellipse(
-      clouds[i].x_pos + 10,
-      clouds[i].y_pos + 10,
-      clouds[i].width,
-      clouds[i].height
-    );
-    ellipse(
-      clouds[i].x_pos - 20,
-      clouds[i].y_pos + 10,
-      clouds[i].width,
-      clouds[i].height
-    );
-    clouds[i].x_pos += clouds[i].speed;
-    if (clouds[i].x_pos > width + gameChar_world_x) {
-      clouds[i].x_pos = -clouds[i].width;
+const Clouds = {
+  // Create Clouds & Push to Array
+  createClouds: function () {
+    for (let i = 0; i < 10; i++) {
+      const x = random(-100, width - 10);
+      const y = random(20, 80);
+      const w = random(40, 70);
+      const s = random(0.5, 2);
+      const cloud = { x_pos: x, y_pos: y, width: w, height: w, speed: s };
+      clouds.push(cloud);
     }
-  }
-}
-
-function initClouds() {
-  for (let i = 0; i < 10; i++) {
-    const x = random(-100, width - 10);
-    const y = random(20, 80);
-    const w = random(40, 70);
-    const s = random(0.5, 2);
-    const cloud = { x_pos: x, y_pos: y, width: w, height: w, speed: s };
-    clouds.push(cloud);
-  }
-}
+  },
+  // Draw Clouds
+  drawClouds: function () {
+    for (let i = 0; i < clouds.length; i++) {
+      fill(255, 255, 255);
+      noStroke();
+      ellipse(
+        clouds[i].x_pos,
+        clouds[i].y_pos,
+        clouds[i].width,
+        clouds[i].height
+      );
+      ellipse(
+        clouds[i].x_pos + 10,
+        clouds[i].y_pos + 10,
+        clouds[i].width,
+        clouds[i].height
+      );
+      ellipse(
+        clouds[i].x_pos - 20,
+        clouds[i].y_pos + 10,
+        clouds[i].width,
+        clouds[i].height
+      );
+      clouds[i].x_pos += clouds[i].speed;
+      if (clouds[i].x_pos > width + gameChar_world_x) {
+        clouds[i].x_pos = -clouds[i].width;
+      }
+    }
+  },
+};
 
 // Tree Drawing
 function drawTree() {
@@ -92,55 +94,61 @@ function drawMountain() {
 }
 
 // Snowflake Initialization & Drawing
-function drawSnow() {
-  const t = frameCount / 60; // update time
+const Snow = {
+  drawSnow: function () {
+    const t = frameCount / 60; // update time
 
-  // create a random number of snowflakes each frame
-  for (let i = 0; i < random(5); i++) {
-    snowflakes.push(new snowflake()); // append snowflake object
-  }
-
-  // loop through snowflakes with a for..of loop
-  for (const flake of snowflakes) {
-    flake.update(t); // update snowflake position
-    flake.display(); // draw snowflake
-  }
-}
-
-// / snowflake class
-function snowflake() {
-  fill(255, 250, 250);
-  noStroke();
-  // initialize coordinates
-  this.posX = 0;
-  this.posY = random(-100, 0);
-  this.initialangle = random(0, 2 * PI);
-  this.size = random(2, 10);
-
-  // radius of snowflake spiral
-  // chosen so the snowflakes are uniformly spread out in area
-  this.radius = sqrt(random(pow(width + 2000, 2)));
-
-  this.update = function (time) {
-    // x position follows a circle
-    const w = 0.1; // angular speed
-    const angle = w * time + this.initialangle;
-    this.posX = width / 2 + this.radius * sin(angle);
-
-    // different size snowflakes fall at slightly different y speeds
-    this.posY += pow(this.size, 0.5);
-
-    // delete snowflake if past end of screen
-    if (this.posY > height) {
-      const index = snowflakes.indexOf(this);
-      snowflakes.splice(index, 1);
+    // create a random number of snowflakes each frame
+    for (let i = 0; i < random(5); i++) {
+      snowflakes.push(new this.snowflake()); // append snowflake object
     }
-  };
 
-  this.display = function () {
-    ellipse(this.posX, this.posY, this.size);
-  };
-}
+    // loop through snowflakes with a for..of loop
+    for (const flake of snowflakes) {
+      flake.update(t); // update snowflake position
+      flake.display(); // draw snowflake
+    }
+  },
+  snowflake: function () {
+    fill(255, 250, 250);
+    noStroke();
+    // initialize coordinates
+    this.posX = 0;
+    this.posY = random(-100, 0);
+    this.initialangle = random(0, 2 * PI);
+    this.size = random(2, 10);
+
+    // radius of snowflake spiral
+    // chosen so the snowflakes are uniformly spread out in area
+    this.radius = sqrt(random(pow(width + 2000, 2)));
+
+    this.update = function (time) {
+      // x position follows a circle
+      let w = 0.1; // angular speed
+      let gamescore = 0;
+      if (game_score > gamescore) {
+        w += 0.05;
+        this.size += 0.02;
+        gamescore++;
+      }
+      const angle = w * time + this.initialangle;
+      this.posX = width / 2 + this.radius * sin(angle);
+
+      // different size snowflakes fall at slightly different y speeds
+      this.posY += pow(this.size, 0.5);
+
+      // delete snowflake if past end of screen
+      if (this.posY > height) {
+        const index = snowflakes.indexOf(this);
+        snowflakes.splice(index, 1);
+      }
+    };
+
+    this.display = function () {
+      ellipse(this.posX, this.posY, this.size);
+    };
+  },
+};
 
 function drawSnowman() {
   for (var i = 0; i < snowman.length; i++) {
@@ -205,16 +213,4 @@ function drawSnowman() {
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 40, 7, 7);
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 20, 7, 7);
   }
-}
-
-function drawSun() {
-  initSun(width / 2 + 460, height / 2 - 240);
-}
-
-function initSun(x, y) {
-  fill(SUN_COLOR);
-  drawingContext.shadowBlur = SUN_GLOW;
-  drawingContext.shadowColor = SUN_COLOR;
-  circle(x, y, SUN_RADIUS * 2);
-  drawingContext.shadowBlur = 0;
 }

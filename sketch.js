@@ -27,12 +27,7 @@ let game_score;
 let char_lives;
 let img;
 let gameMode;
-// background
-const SKY_SPACE = 0.4;
-const SUN_COLOR = '#FFF2AD';
-const SUN_GLOW = 25;
-const SUN_RADIUS = 50;
-
+let jumpSound;
 
 // Main Functions
 
@@ -48,7 +43,9 @@ function setup() {
 
 // Preload splash screen image
 function preload() {
-  img = loadImage('/SplashScreenBG.jpg');
+  soundFormats("mp3", "wav");
+  jumpSound = loadSound("./jump.wav");
+  jumpSound.setVolume(0.1);
 }
 
 // Call all splashscreen and main game functions
@@ -60,23 +57,26 @@ function draw() {
   }
 }
 
-// Spash screen
+// Splash screen
 function splashScreen() {
-  image(img, 0, 0, width, height);
+  background("#B1E8FF");
+  Snow.drawSnow();
+  fill(255, 0, 0);
+  textFont("Comic Sans MS");
+  textSize(50);
   if (frameCount % 60 < 30) {
-    fill(255, 0, 0);
-    textFont('Comic Sans MS');
-    textSize(100);
-    text('Start', 400, 500);
-    textSize(50);
-    text('Press Space or Enter to Start', 150, 550);
+    text(
+      "Collect 5 or more coins and reach the flag to win!",
+      10,
+      height / 2 - 100
+    );
+    text("Press Space or Enter to Start", 150, height / 2);
   }
 }
 
 // Main game function, calling all other functions
 function gamePlay() {
-  background('#B1E8FF');
-  drawSun();
+  background("#B1E8FF");
   noStroke();
   fill(255, 250, 250);
   rect(0, floorPos_y, width, height - floorPos_y);
@@ -85,13 +85,13 @@ function gamePlay() {
   translate(scrollPos, 0);
 
   // Draw the scenery
+  Clouds.drawClouds();
   drawMountain();
-  drawClouds();
   drawTree();
-  drawCanyons();
+  Canyons.drawCanyons();
   drawSnowman();
-  drawSnow();
-  drawCollectables();
+  Snow.drawSnow();
+  Collectables.drawCollectables();
   drawFlagpole();
   pop();
   drawGameScore();
@@ -146,8 +146,8 @@ function gamePlay() {
     }
   }
   gameChar_world_x = gameChar_x - scrollPos;
-  checkIfGameCharInCollectablesRange();
-  checkIfGameCharIsOverCanyons();
+  Collectables.checkIfGameCharInCollectablesRange();
+  Canyons.checkIfGameCharIsOverCanyons();
 }
 
 // Move Character Functions
@@ -159,6 +159,7 @@ function keyPressed() {
   } else if (keyCode == 38) {
     if (gameChar_y >= floorPos_y) {
       gameChar_y -= 100;
+      jumpSound.play();
     }
   }
 
