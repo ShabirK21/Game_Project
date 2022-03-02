@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 function game_setup() {
   // game character variable initialization
   gameChar_x = width / 2 - 400;
@@ -9,6 +10,7 @@ function game_setup() {
   isRight = false;
   isFalling = false;
   isPlummeting = false;
+  onPlatform = false;
 
   gameMode = 1;
   game_score = 0;
@@ -167,4 +169,17 @@ function game_setup() {
     { x_pos: 1050, y_pos: floorPos_y - 50, width: 100, height: 100 },
     { x_pos: width + 1100, y_pos: floorPos_y - 50, width: 100, height: 100 },
   ];
+
+  platforms = [];
+  platforms.push(
+    Platforms.createPlatforms(canyons[0].x_pos, floorPos_y - 80, 100)
+  );
+  platforms.push(
+    Platforms.createPlatforms(canyons[0].x_pos + 300, floorPos_y - 100, 100)
+  );
+
+  enemies = [];
+  particles = [];
+  enemies.push(new Enemies.Enemy(500, floorPos_y, 100));
+  enemies.push(new Enemies.Enemy(800, floorPos_y, 100));
 }

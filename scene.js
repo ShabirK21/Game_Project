@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 // Scenery Functions
 
 // Clouds Initialization & Drawing
@@ -5,7 +7,7 @@ const Clouds = {
   // Create Clouds & Push to Array
   createClouds: function () {
     for (let i = 0; i < 10; i++) {
-      const x = random(-100, width - 10);
+      const x = random(-300, width - 10);
       const y = random(20, 80);
       const w = random(40, 70);
       const s = random(0.5, 2);
@@ -212,5 +214,98 @@ function drawSnowman() {
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 60, 7, 7);
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 40, 7, 7);
     ellipse(snowman[i].x_pos, snowman[i].y_pos - 20, 7, 7);
+  }
+}
+
+const Enemies = {
+  Enemy: function (x, y, range) {
+    this.x = x;
+    this.y = y;
+    this.range = range;
+    this.current_x = x;
+    this.inc = 1;
+    this.points = [];
+    this.size = 10;
+
+    this.update = function () {
+      this.current_x += this.inc;
+
+      if (this.current_x >= this.x + this.range) {
+        this.inc = -1;
+      } else if (this.current_x < this.x) {
+        this.inc = 1;
+      }
+    };
+    this.draw = function () {
+      this.update();
+      drawFire(this.current_x, this.y, this.size);
+      fill(0);
+      ellipse(this.current_x - 5, this.y - 10, this.size / 2);
+      ellipse(this.current_x + 5, this.y - 10, this.size / 2);
+    };
+    this.checkContact = function (gc_x, gc_y) {
+      var d = dist(gc_x, gc_y, this.current_x, this.y);
+      if (d < 20) {
+        return true;
+      }
+      return false;
+    };
+  },
+  drawEnemies: function () {
+    for (var i = 0; i < enemies.length; i++) {
+      enemies[i].draw();
+
+      var isContact = enemies[i].checkContact(gameChar_world_x, gameChar_y);
+      if (isContact) {
+        if (char_lives > 0) {
+          char_lives--;
+          game_setup();
+        }
+      }
+    }
+  },
+};
+
+class Particle {
+  constructor(x, y, size) {
+    this.x = x;
+    this.y = y;
+    this.vx = random(-1, 1);
+    this.vy = random(-0.5, -1);
+    this.alpha = 255;
+    this.d = size;
+  }
+
+  finished() {
+    return this.alpha < 0;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.alpha -= 3;
+    this.d -= random(0.05, 0.1);
+  }
+
+  show() {
+    noStroke();
+    fill(random(200, 230), random(50, 150), 10, this.alpha);
+    ellipse(this.x, this.y, this.d);
+    fill(247, 55, 24);
+    ellipse(this.x, this.y - 10, this.d);
+  }
+}
+
+function drawFire(x, y, size) {
+  for (let i = 0; i < 5; i++) {
+    let p = new Particle(x, y, size);
+    particles.push(p);
+  }
+  for (let i = particles.length - 1; i >= 0; i--) {
+    particles[i].update();
+    particles[i].show();
+    if (particles[i].finished()) {
+      particles.splice(i, 1);
+    }
   }
 }

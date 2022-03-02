@@ -201,3 +201,52 @@ function drawGameOver() {
     text("You Lose!", width / 2 - 100, height / 2 + 50);
   }
 }
+
+const Platforms = {
+  createPlatforms: function (x, y, length) {
+    var p = {
+      x: x,
+      y: y,
+      length: length,
+      generate: function () {
+        fill(0);
+        rect(this.x, this.y, this.length, 20);
+      },
+      checkContact: function (gc_x, gc_y) {
+        if (
+          gc_x > this.x &&
+          gc_x < this.x + this.length &&
+          gc_y > this.y &&
+          gc_y < this.y + 20
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    };
+
+    return p;
+  },
+  drawPlatforms: function () {
+    for (var i = 0; i < platforms.length; i++) {
+      platforms[i].generate();
+    }
+  },
+  checkIfCharacterIsOnPlatform: function () {
+    if (isFalling) {
+      var isContact = false;
+      onPlatform = false;
+      for (var i = 0; i < platforms.length; i++) {
+        isContact = platforms[i].checkContact(gameChar_world_x, gameChar_y);
+        if (isContact) {
+          onPlatform = true;
+          break;
+        }
+      }
+      if (!isContact) {
+        gameChar_y += 1;
+      }
+    }
+  },
+};

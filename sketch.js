@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 // game character variables
 let gameChar_x;
 let gameChar_y;
@@ -28,7 +30,12 @@ let char_lives;
 let img;
 let gameMode;
 let jumpSound;
-
+let platforms;
+let onPlatform;
+let enemies;
+let char;
+let fire;
+let particles;
 // Main Functions
 
 // setup function calling game setup
@@ -44,7 +51,7 @@ function setup() {
 // Preload splash screen image
 function preload() {
   soundFormats("mp3", "wav");
-  jumpSound = loadSound("./jump.wav");
+  jumpSound = loadSound("./Assets/jump.wav");
   jumpSound.setVolume(0.1);
 }
 
@@ -63,14 +70,11 @@ function splashScreen() {
   Snow.drawSnow();
   fill(255, 0, 0);
   textFont("Comic Sans MS");
-  textSize(50);
   if (frameCount % 60 < 30) {
-    text(
-      "Collect 5 or more coins and reach the flag to win!",
-      10,
-      height / 2 - 100
-    );
-    text("Press Space or Enter to Start", 150, height / 2);
+    textSize(30);
+    text("Collect 5 or more coins and reach the flag to win!", 160, height / 2);
+    textSize(50);
+    text("Press Enter to start", 250, height / 2 + 80);
   }
 }
 
@@ -93,6 +97,8 @@ function gamePlay() {
   Snow.drawSnow();
   Collectables.drawCollectables();
   drawFlagpole();
+  Platforms.drawPlatforms();
+  Enemies.drawEnemies();
   pop();
   drawGameScore();
   drawLives();
@@ -126,7 +132,6 @@ function gamePlay() {
   }
 
   if (gameChar_y < floorPos_y) {
-    gameChar_y += 1;
     isFalling = true;
   } else {
     isFalling = false;
@@ -148,6 +153,7 @@ function gamePlay() {
   gameChar_world_x = gameChar_x - scrollPos;
   Collectables.checkIfGameCharInCollectablesRange();
   Canyons.checkIfGameCharIsOverCanyons();
+  Platforms.checkIfCharacterIsOnPlatform();
 }
 
 // Move Character Functions
@@ -157,7 +163,7 @@ function keyPressed() {
   } else if (keyCode == 39) {
     isRight = true;
   } else if (keyCode == 38) {
-    if (gameChar_y >= floorPos_y) {
+    if (gameChar_y >= floorPos_y || onPlatform) {
       gameChar_y -= 100;
       jumpSound.play();
     }
