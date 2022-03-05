@@ -57,6 +57,9 @@ function preload() {
   jumpSound.setVolume(0.1);
   arcadeFont = loadFont("./Assets/ARCADECLASSIC.TTF");
   arrowKeys = loadImage("./Assets/ArrowKeys.png");
+  startButtonImg = loadImage("./Assets/start.png");
+  rulesButtonImg = loadImage("./Assets/rules.png");
+  backButtonImg = loadImage("./Assets/back.png");
 }
 
 // Call all splashscreen and main game functions
@@ -80,6 +83,8 @@ function splashScreen() {
   textSize(50);
   text("Controls", width / 2 + 380, height / 2 + 120);
   image(arrowKeys, width / 2 + 50, height / 2 + 50, 200, 200);
+  image(startButtonImg, width / 2 - 400, height / 2 + 50, 200, 100);
+  image(rulesButtonImg, width / 2 - 385, height / 2 + 150, 170, 75);
   createButtons();
 }
 
@@ -219,6 +224,7 @@ function rules() {
   textAlign(CENTER, CENTER);
   text("Collect 5 or more coins", width / 2, height / 2);
   text("and reach the flag to win!", width / 2, height / 2 + 50);
+  image(backButtonImg, width / 2 - 110, height / 2 + 150, 200, 100);
   backButton = createImg("./Assets/back.png");
   backButton.size(200, 100);
   backButton.position(width / 2 - 110, height / 2 + 150);
