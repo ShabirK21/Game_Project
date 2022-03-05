@@ -193,10 +193,10 @@ function keyReleased() {
 function createButtons() {
   var startButton;
   var rulesButton;
-  startButton = createImg("/Assets/start.png");
+  startButton = createImg("./Assets/start.png");
   startButton.size(200, 100);
   startButton.position(width / 2 - 400, height / 2 + 50);
-  rulesButton = createImg("/Assets/rules.png");
+  rulesButton = createImg("./Assets/rules.png");
   rulesButton.size(170, 75);
   rulesButton.position(width / 2 - 385, height / 2 + 150);
   rulesButton.mousePressed(function () {
@@ -219,7 +219,7 @@ function rules() {
   textAlign(CENTER, CENTER);
   text("Collect 5 or more coins", width / 2, height / 2);
   text("and reach the flag to win!", width / 2, height / 2 + 50);
-  backButton = createImg("/Assets/back.png");
+  backButton = createImg("./Assets/back.png");
   backButton.size(200, 100);
   backButton.position(width / 2 - 110, height / 2 + 150);
   backButton.mousePressed(function () {
