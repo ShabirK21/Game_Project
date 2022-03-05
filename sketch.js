@@ -27,7 +27,6 @@ let currentScale;
 // other variables
 let game_score;
 let char_lives;
-let img;
 let gameMode;
 let jumpSound;
 let platforms;
@@ -36,6 +35,9 @@ let enemies;
 let char;
 let fire;
 let particles;
+let startButton;
+let rulesButton;
+let backButton;
 // Main Functions
 
 // setup function calling game setup
@@ -53,6 +55,8 @@ function preload() {
   soundFormats("mp3", "wav");
   jumpSound = loadSound("./Assets/jump.wav");
   jumpSound.setVolume(0.1);
+  arcadeFont = loadFont("./Assets/ARCADECLASSIC.TTF");
+  arrowKeys = loadImage("./Assets/ArrowKeys.png");
 }
 
 // Call all splashscreen and main game functions
@@ -61,29 +65,33 @@ function draw() {
     splashScreen();
   } else if (gameMode == 2) {
     gamePlay();
+  } else if (gameMode == 3) {
+    rules();
   }
 }
 
 // Splash screen
 function splashScreen() {
   background("#B1E8FF");
-  Snow.drawSnow();
-  fill(255, 0, 0);
-  textFont("Comic Sans MS");
-  if (frameCount % 60 < 30) {
-    textSize(30);
-    text("Collect 5 or more coins and reach the flag to win!", 160, height / 2);
-    textSize(50);
-    text("Press Enter to start", 250, height / 2 + 80);
-  }
+  textFont(arcadeFont);
+  textSize(100);
+  textAlign(CENTER, TOP);
+  text("Snow Runner", 0, 12, width);
+  textSize(50);
+  text("Controls", width / 2 + 380, height / 2 + 120);
+  image(arrowKeys, width / 2 + 50, height / 2 + 50, 200, 200);
+  createButtons();
 }
 
 // Main game function, calling all other functions
 function gamePlay() {
   background("#B1E8FF");
+  textFont("calibri");
   noStroke();
   fill(255, 250, 250);
   rect(0, floorPos_y, width, height - floorPos_y);
+  fill("#684132");
+  rect(0, floorPos_y + 50, width, height - floorPos_y);
 
   push();
   translate(scrollPos, 0);
@@ -168,8 +176,9 @@ function keyPressed() {
       jumpSound.play();
     }
   }
-
+  ``;
   if (keyCode == 13 || keyCode == 32) {
+    removeElements();
     gameMode = 2;
   }
 }
@@ -179,4 +188,42 @@ function keyReleased() {
   } else if (keyCode == 39) {
     isRight = false;
   }
+}
+
+function createButtons() {
+  var startButton;
+  var rulesButton;
+  startButton = createImg("/Assets/start.png");
+  startButton.size(200, 100);
+  startButton.position(width / 2 - 400, height / 2 + 50);
+  rulesButton = createImg("/Assets/rules.png");
+  rulesButton.size(170, 75);
+  rulesButton.position(width / 2 - 385, height / 2 + 150);
+  rulesButton.mousePressed(function () {
+    gameMode = 3;
+    removeElements();
+  });
+  startButton.mousePressed(function () {
+    gameMode = 2;
+    removeElements();
+  });
+}
+
+function rules() {
+  removeElements();
+  background("#B1E8FF");
+  textSize(100);
+  textAlign(CENTER, TOP);
+  text("Rules", 0, 12, width);
+  textSize(50);
+  textAlign(CENTER, CENTER);
+  text("Collect 5 or more coins", width / 2, height / 2);
+  text("and reach the flag to win!", width / 2, height / 2 + 50);
+  backButton = createImg("/Assets/back.png");
+  backButton.size(200, 100);
+  backButton.position(width / 2 - 110, height / 2 + 150);
+  backButton.mousePressed(function () {
+    removeElements();
+    gameMode = 1;
+  });
 }

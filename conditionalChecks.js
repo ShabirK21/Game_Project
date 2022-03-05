@@ -82,31 +82,7 @@ const Canyons = {
   drawCanyon: function (canyon) {
     fill("#B1E8FF");
     rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
-    fill(102, 255, 255);
-    triangle(
-      canyon.x_pos,
-      height,
-      canyon.x_pos + 15,
-      height - 100,
-      canyon.x_pos + 30,
-      height
-    );
-    triangle(
-      canyon.x_pos + 30,
-      height,
-      canyon.x_pos + 45,
-      height - 100,
-      canyon.x_pos + 60,
-      height
-    );
-    triangle(
-      canyon.x_pos + 60,
-      height,
-      canyon.x_pos + 75,
-      height - 100,
-      canyon.x_pos + 90,
-      height
-    );
+    drawOil(canyon.x_pos + canyon.width / 2, floorPos_y + 150, 10);
   },
   checkIfGameCharIsOverCanyons: function () {
     for (let i = 0; i < canyons.length; i++) {
@@ -132,6 +108,7 @@ const Canyons = {
 // Drawing character health
 function drawLives() {
   fill(255, 0, 0);
+  textAlign(RIGHT);
   for (let i = 0; i < char_lives; i++) {
     text("♥", 900 + i * 50, 30);
   }
@@ -140,7 +117,8 @@ function drawLives() {
 function drawGameScore() {
   fill(0);
   textSize(32);
-  text(`Score: ${game_score}`, 30, 30);
+  textAlign(LEFT);
+  text(`Coins: ${game_score}`, 30, 30);
 }
 
 // Check if character is dead and re-spawn when lives are greater than 0

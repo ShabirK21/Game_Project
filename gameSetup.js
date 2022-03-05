@@ -177,9 +177,16 @@ function game_setup() {
   platforms.push(
     Platforms.createPlatforms(canyons[0].x_pos + 300, floorPos_y - 100, 100)
   );
+  platforms.push(
+    Platforms.createPlatforms(canyons[0].x_pos + 700, floorPos_y - 300, 100)
+  );
+  platforms.push(
+    Platforms.createPlatforms(canyons[0].x_pos + 1500, floorPos_y - 100, 100)
+  );
 
   enemies = [];
+  enemies.push(new Enemies.Enemy(500, floorPos_y - 5, 100));
+  enemies.push(new Enemies.Enemy(800, floorPos_y - 5, 100));
+  enemies.push(new Enemies.Enemy(1500, floorPos_y - 5, 100));
   particles = [];
-  enemies.push(new Enemies.Enemy(500, floorPos_y, 100));
-  enemies.push(new Enemies.Enemy(800, floorPos_y, 100));
 }

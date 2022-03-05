@@ -225,7 +225,7 @@ const Enemies = {
     this.current_x = x;
     this.inc = 1;
     this.points = [];
-    this.size = 10;
+    this.size = 30;
 
     this.update = function () {
       this.current_x += this.inc;
@@ -238,10 +238,11 @@ const Enemies = {
     };
     this.draw = function () {
       this.update();
-      drawFire(this.current_x, this.y, this.size);
+      fill("#C6DCF5");
+      circle(this.current_x, this.y, this.size);
       fill(0);
-      ellipse(this.current_x - 5, this.y - 10, this.size / 2);
-      ellipse(this.current_x + 5, this.y - 10, this.size / 2);
+      ellipse(this.current_x - 7, this.y - 5, this.size - 25);
+      ellipse(this.current_x + 7, this.y - 5, this.size - 25);
     };
     this.checkContact = function (gc_x, gc_y) {
       var d = dist(gc_x, gc_y, this.current_x, this.y);
@@ -270,8 +271,8 @@ class Particle {
   constructor(x, y, size) {
     this.x = x;
     this.y = y;
-    this.vx = random(-1, 1);
-    this.vy = random(-0.5, -1);
+    this.vx = random(-0.5, 0.5);
+    this.vy = random(-2, -1);
     this.alpha = 255;
     this.d = size;
   }
@@ -289,14 +290,14 @@ class Particle {
 
   show() {
     noStroke();
-    fill(random(200, 230), random(50, 150), 10, this.alpha);
+    fill(random(0, 50), random(0, 50), 255, this.alpha);
+    //triangle(this.x, this.y, this.x + 10, this.y - 20, this.x + 15, this.y);
+    fill(0);
     ellipse(this.x, this.y, this.d);
-    fill(247, 55, 24);
-    ellipse(this.x, this.y - 10, this.d);
   }
 }
 
-function drawFire(x, y, size) {
+function drawOil(x, y, size) {
   for (let i = 0; i < 5; i++) {
     let p = new Particle(x, y, size);
     particles.push(p);
