@@ -169,24 +169,32 @@ function game_setup() {
     { x_pos: 1050, y_pos: floorPos_y - 50, width: 100, height: 100 },
     { x_pos: width + 1100, y_pos: floorPos_y - 50, width: 100, height: 100 },
   ];
-
+  // Create platforms and push to array
   platforms = [];
   platforms.push(
     Platforms.createPlatforms(canyons[0].x_pos, floorPos_y - 80, 100)
   );
   platforms.push(
-    Platforms.createPlatforms(canyons[0].x_pos + 300, floorPos_y - 100, 100)
+    Platforms.createPlatforms(canyons[0].x_pos + 400, floorPos_y - 100, 100)
   );
   platforms.push(
-    Platforms.createPlatforms(canyons[0].x_pos + 700, floorPos_y - 300, 100)
+    Platforms.createPlatforms(canyons[0].x_pos + 550, floorPos_y - 150, 100)
   );
   platforms.push(
-    Platforms.createPlatforms(canyons[0].x_pos + 1500, floorPos_y - 100, 100)
+    Platforms.createPlatforms(canyons[1].x_pos + 300, floorPos_y - 100, 100)
   );
-
+  platforms.push(
+    Platforms.createPlatforms(canyons[1].x_pos + 600, floorPos_y - 130, 100)
+  );
+  platforms.push(
+    Platforms.createPlatforms(canyons[1].x_pos + 970, floorPos_y - 150, 100)
+  );
+  // Create enemies and push to array
   enemies = [];
   enemies.push(new Enemies.Enemy(500, floorPos_y - 5, 100));
   enemies.push(new Enemies.Enemy(800, floorPos_y - 5, 100));
   enemies.push(new Enemies.Enemy(1500, floorPos_y - 5, 100));
+  enemies.push(new Enemies.Enemy(1700, floorPos_y - 5, 100));
+  enemies.push(new Enemies.Enemy(2000, floorPos_y - 5, 100));
   particles = [];
 }

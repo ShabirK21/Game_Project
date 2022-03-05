@@ -77,6 +77,7 @@ function draw() {
 function splashScreen() {
   background("#B1E8FF");
   textFont(arcadeFont);
+  fill(0, 0, 0);
   textSize(100);
   textAlign(CENTER, TOP);
   text("Snow Runner", 0, 12, width);
@@ -93,10 +94,9 @@ function splashScreen() {
 // Main game function, calling all other functions
 function gamePlay() {
   background("#B1E8FF");
-  textFont("calibri");
   noStroke();
   fill(255, 250, 250);
-  rect(0, floorPos_y, width, height - floorPos_y);
+  rect(0, floorPos_y, width, height - floorPos_y, 10);
   fill("#684132");
   rect(0, floorPos_y + 50, width, height - floorPos_y);
 
@@ -109,11 +109,11 @@ function gamePlay() {
   drawTree();
   Canyons.drawCanyons();
   drawSnowman();
-  Snow.drawSnow();
   Collectables.drawCollectables();
   drawFlagpole();
   Platforms.drawPlatforms();
   Enemies.drawEnemies();
+  Snow.drawSnow();
   pop();
   drawGameScore();
   drawLives();
@@ -135,7 +135,7 @@ function gamePlay() {
 
   // Interaction
   var IsGameOver = checkIsGameOver();
-  if (IsGameOver == true) {
+  if (IsGameOver) {
     drawGameOver();
     return;
   }
@@ -219,15 +219,28 @@ function createButtons() {
 function rules() {
   removeElements();
   background("#B1E8FF");
+  fill(0);
   textSize(100);
   textAlign(CENTER, TOP);
   text("Rules", 0, 12, width);
   textSize(50);
   textAlign(CENTER, CENTER);
-  text("Collect 5 or more coins", width / 2, height / 2);
-  text("and reach the flag to win!", width / 2, height / 2 + 50);
-  image(backButtonImg, width / 2 - 110, height / 2 + 150, 200, 100);
-  backButton = createImg("./Assets/back.png");
+  text("Collect 10 coins", width / 2, height / 2 - 100);
+  fill(255, 215, 0);
+  stroke(0);
+  strokeWeight(1);
+  ellipse(width / 2 + 230, height / 2 - 95, 20, 30);
+  ellipse(width / 2 + 230, height / 2 - 95, 10, 20);
+  fill(0);
+  text("Reach the flag", width / 2, height / 2 - 30);
+  fill(0);
+  rect(width / 2 + 200, height / 2 - 40, 10, 30);
+  fill(46, 139, 87);
+  rect(width / 2 + 200, height / 2 - 40, 30, 15);
+  if (frameCount % 60 > 30) {
+    image(backButtonImg, width / 2 - 110, height / 2 + 150, 200, 100);
+  }
+  backButton = createImg("./Assets/transparent.png");
   backButton.size(200, 100);
   backButton.position(width / 2 - 110, height / 2 + 150);
   backButton.mousePressed(function () {

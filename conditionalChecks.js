@@ -108,17 +108,19 @@ const Canyons = {
 // Drawing character health
 function drawLives() {
   fill(255, 0, 0);
+  textFont("calibri");
   textAlign(RIGHT);
   for (let i = 0; i < char_lives; i++) {
     text("♥", 900 + i * 50, 30);
   }
 }
-
+2;
 function drawGameScore() {
   fill(0);
   textSize(32);
+  textFont(arcadeFont);
   textAlign(LEFT);
-  text(`Coins: ${game_score}`, 30, 30);
+  text(`Coins ${game_score}`, 30, 30);
 }
 
 // Check if character is dead and re-spawn when lives are greater than 0
@@ -127,7 +129,6 @@ function checkIfCharacterDead() {
     if (char_lives > 0) {
       game_setup();
       gameMode = 2;
-      text(`You have ${char_lives} lives left`, width / 2, height / 2);
     }
   }
 }
@@ -141,7 +142,7 @@ function drawFlagpole() {
   if (
     gameChar_world_x > flagpole.x_pos &&
     gameChar_world_x < flagpole.x_pos + 100 &&
-    game_score >= 5
+    game_score >= 10
   ) {
     flagpole.isReached = true;
   }
@@ -169,14 +170,15 @@ function checkIsGameOver() {
 // Print game over message
 function drawGameOver() {
   fill(0);
-  textSize(30);
-  text("Game Over", width / 2 - 100, height / 2);
+  textSize(50);
+  textFont(arcadeFont);
+  text("Game Over", width / 2 - 100, height / 2 - 100);
 
   if (char_lives > 0) {
-    text("You Win!", width / 2 - 100, height / 2 + 50);
+    text("You Win!", width / 2 - 100, height / 2 - 50);
   } else {
     gameChar_y += 2;
-    text("You Lose!", width / 2 - 100, height / 2 + 50);
+    text("You Lose!", width / 2 - 100, height / 2 - 50);
   }
 }
 
@@ -187,8 +189,8 @@ const Platforms = {
       y: y,
       length: length,
       generate: function () {
-        fill(0);
-        rect(this.x, this.y, this.length, 20);
+        fill(0, 191, 255);
+        rect(this.x, this.y, this.length, 20, 3);
       },
       checkContact: function (gc_x, gc_y) {
         if (

@@ -229,7 +229,6 @@ const Enemies = {
 
     this.update = function () {
       this.current_x += this.inc;
-
       if (this.current_x >= this.x + this.range) {
         this.inc = -1;
       } else if (this.current_x < this.x) {
@@ -243,6 +242,7 @@ const Enemies = {
       fill(0);
       ellipse(this.current_x - 7, this.y - 5, this.size - 25);
       ellipse(this.current_x + 7, this.y - 5, this.size - 25);
+      circle(this.current_x, this.y + 5, this.size - 20);
     };
     this.checkContact = function (gc_x, gc_y) {
       var d = dist(gc_x, gc_y, this.current_x, this.y);
