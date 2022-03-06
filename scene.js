@@ -5,7 +5,7 @@
 // Clouds Initialization & Drawing
 const Clouds = {
   // Create Clouds & Push to Array
-  createClouds: function () {
+  generateClouds: function () {
     for (let i = 0; i < 10; i++) {
       const x = random(-300, width - 10);
       const y = random(20, 80);
@@ -294,46 +294,45 @@ const Enemies = {
   },
 };
 
-class Particle {
-  constructor(x, y, size) {
+const Oil = {
+  generateOil: function (x, y, size) {
     this.x = x;
     this.y = y;
     this.vx = random(-0.5, 0.5);
     this.vy = random(-2, -1);
     this.alpha = 255;
     this.d = size;
-  }
 
-  finished() {
-    return this.alpha < 0;
-  }
+    this.update = function () {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.alpha -= 3;
+      this.d -= random(0.05, 0.1);
+    };
 
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.alpha -= 3;
-    this.d -= random(0.05, 0.1);
-  }
+    this.show = function () {
+      noStroke();
+      fill(random(0, 50), random(0, 50), 255, this.alpha);
+      //triangle(this.x, this.y, this.x + 10, this.y - 20, this.x + 15, this.y);
+      fill(0);
+      ellipse(this.x, this.y, this.d);
+    };
 
-  show() {
-    noStroke();
-    fill(random(0, 50), random(0, 50), 255, this.alpha);
-    //triangle(this.x, this.y, this.x + 10, this.y - 20, this.x + 15, this.y);
-    fill(0);
-    ellipse(this.x, this.y, this.d);
-  }
-}
-
-function drawOil(x, y, size) {
-  for (let i = 0; i < 5; i++) {
-    let p = new Particle(x, y, size);
-    particles.push(p);
-  }
-  for (let i = particles.length - 1; i >= 0; i--) {
-    particles[i].update();
-    particles[i].show();
-    if (particles[i].finished()) {
-      particles.splice(i, 1);
+    this.finished = function () {
+      return this.alpha < 0;
+    };
+  },
+  drawOil: function (x, y, size) {
+    for (let i = 0; i < 5; i++) {
+      let p = new Oil.generateOil(x, y, size);
+      particles.push(p);
     }
-  }
-}
+    for (let i = particles.length - 1; i >= 0; i--) {
+      particles[i].update();
+      particles[i].show();
+      if (particles[i].finished()) {
+        particles.splice(i, 1);
+      }
+    }
+  },
+};

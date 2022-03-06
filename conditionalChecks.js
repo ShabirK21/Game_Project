@@ -82,7 +82,7 @@ const Canyons = {
   drawCanyon: function (canyon) {
     fill("#B1E8FF");
     rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
-    drawOil(canyon.x_pos + canyon.width / 2, floorPos_y + 150, 10);
+    Oil.drawOil(canyon.x_pos + canyon.width / 2, floorPos_y + 150, 10);
   },
   checkIfGameCharIsOverCanyons: function () {
     for (let i = 0; i < canyons.length; i++) {

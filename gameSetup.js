@@ -145,7 +145,7 @@ function game_setup() {
 
   snowflakes = [];
   clouds = [];
-  Clouds.createClouds();
+  Clouds.generateClouds();
 
   collectables = [];
   Collectables.initCollectables();

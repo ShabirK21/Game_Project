@@ -17,14 +17,10 @@ let scrollPos;
 let clouds;
 let mountains;
 let snow;
-let tree;
-let trees_x;
 let trees;
 let canyons;
 let collectables;
 let snowflakes;
-let canyon_icicle;
-let currentScale;
 // other variables
 let game_score;
 let char_lives;
@@ -102,6 +98,7 @@ function gamePlay() {
   rect(0, floorPos_y + 50, width, height - floorPos_y);
 
   push();
+  //translate(random(-0.5, 0.5), random(-0.5, 0.5));
   translate(scrollPos, 0);
 
   // Draw the scenery
