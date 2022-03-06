@@ -15,10 +15,11 @@ let isPlummeting;
 let scrollPos;
 // scenery variables
 let clouds;
-let mountain;
+let mountains;
 let snow;
 let tree;
 let trees_x;
+let trees;
 let canyons;
 let collectables;
 let snowflakes;
@@ -105,10 +106,10 @@ function gamePlay() {
 
   // Draw the scenery
   Clouds.drawClouds();
-  drawMountain();
-  drawTree();
+  Mountain.drawMountain();
+  Tree.drawTree();
   Canyons.drawCanyons();
-  drawSnowman();
+  Snowman.drawSnowman();
   Collectables.drawCollectables();
   drawFlagpole();
   Platforms.drawPlatforms();

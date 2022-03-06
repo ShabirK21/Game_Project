@@ -47,53 +47,93 @@ const Clouds = {
 };
 
 // Tree Drawing
-function drawTree() {
-  for (let i = 0; i < trees.length; i++) {
-    fill(139, 69, 19);
-    noStroke();
-    rect(
-      trees[i].trunkX,
-      trees[i].trunkY,
-      trees[i].trunkWidth,
-      trees[i].trunkHeight
-    );
-    fill(0, 100, 0);
-    triangle(
-      trees[i].trunkX - 50,
-      trees[i].trunkY + 50,
-      trees[i].trunkX + trees[i].trunkWidth / 2,
-      trees[i].trunkY - 100,
-      trees[i].trunkX + trees[i].trunkWidth + 50,
-      trees[i].trunkY + 50
-    );
-  }
-}
+const Tree = {
+  generateTree: function (trunkX, trunkY, trunkWidth, trunkHeight) {
+    this.trunkX = trunkX;
+    this.trunkY = trunkY;
+    this.trunkWidth = trunkWidth;
+    this.trunkHeight = trunkHeight;
+
+    this.draw = function () {
+      fill(139, 69, 19);
+      noStroke();
+      rect(this.trunkX, this.trunkY, this.trunkWidth, this.trunkHeight);
+      fill(0, 100, 0);
+      triangle(
+        this.trunkX - 50,
+        this.trunkY + 50,
+        this.trunkX + this.trunkWidth / 2,
+        this.trunkY - 100,
+        this.trunkX + this.trunkWidth + 50,
+        this.trunkY + 50
+      );
+    };
+  },
+  drawTree: function () {
+    for (let i = 0; i < trees.length; i++) {
+      trees[i].draw();
+    }
+  },
+};
 
 // Mountain Drawing
-function drawMountain() {
-  noStroke();
-  for (let i = 0; i < mountain.length; i++) {
-    fill(mountain[i].color);
-    triangle(
-      mountain[i].x1,
-      mountain[i].y1,
-      mountain[i].x2,
-      mountain[i].y2,
-      mountain[i].x3,
-      mountain[i].y3
-    );
-    fill(213, 212, 255);
-    strokeWeight(0);
-    beginShape();
-    vertex(mountain[i].x1, mountain[i].y1);
-    vertex(mountain[i].snowcapX1, mountain[i].snowcapY1);
-    vertex(mountain[i].snowcapX2, mountain[i].snowcapY2);
-    vertex(mountain[i].snowcapX3, mountain[i].snowcapY3);
-    vertex(mountain[i].snowcapX4, mountain[i].snowcapY4);
-    vertex(mountain[i].snowcapX5, mountain[i].snowcapY5);
-    endShape(CLOSE);
-  }
-}
+const Mountain = {
+  generateMountain: function (
+    x1,
+    y1,
+    x2,
+    x3,
+    color,
+    snowcapX1,
+    snowcapY1,
+    snowcapX2,
+    snowcapY2,
+    snowcapX3,
+    snowcapY3,
+    snowcapX4,
+    snowcapY4,
+    snowcapX5,
+    snowcapY5
+  ) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = floorPos_y;
+    this.x3 = x3;
+    this.y3 = floorPos_y;
+    this.color = color;
+    this.snowcapX1 = snowcapX1;
+    this.snowcapY1 = snowcapY1;
+    this.snowcapX2 = snowcapX2;
+    this.snowcapY2 = snowcapY2;
+    this.snowcapX3 = snowcapX3;
+    this.snowcapY3 = snowcapY3;
+    this.snowcapX4 = snowcapX4;
+    this.snowcapY4 = snowcapY4;
+    this.snowcapX5 = snowcapX5;
+    this.snowcapY5 = snowcapY5;
+
+    this.draw = function () {
+      fill(this.color);
+      triangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
+      fill(213, 212, 255);
+      strokeWeight(0);
+      beginShape();
+      vertex(this.x1, this.y1);
+      vertex(this.snowcapX1, this.snowcapY1);
+      vertex(this.snowcapX2, this.snowcapY2);
+      vertex(this.snowcapX3, this.snowcapY3);
+      vertex(this.snowcapX4, this.snowcapY4);
+      vertex(this.snowcapX5, this.snowcapY5);
+      endShape(CLOSE);
+    };
+  },
+  drawMountain: function () {
+    for (let i = 0; i < mountains.length; i++) {
+      mountains[i].draw();
+    }
+  },
+};
 
 // Snowflake Initialization & Drawing
 const Snow = {
@@ -152,70 +192,57 @@ const Snow = {
   },
 };
 
-function drawSnowman() {
-  for (var i = 0; i < snowman.length; i++) {
-    // snowman
-    fill(255);
-    noStroke();
-    ellipse(
-      snowman[i].x_pos,
-      snowman[i].y_pos,
-      snowman[i].width,
-      snowman[i].height
-    );
-    ellipse(
-      snowman[i].x_pos,
-      snowman[i].y_pos - 50,
-      snowman[i].width - 30,
-      snowman[i].height - 30
-    );
-    ellipse(
-      snowman[i].x_pos,
-      snowman[i].y_pos - 100,
-      snowman[i].width - 40,
-      snowman[i].height - 40
-    );
+const Snowman = {
+  generateSnowman: function (x_pos, width, height) {
+    this.x_pos = x_pos;
+    this.y_pos = floorPos_y - 50;
+    this.width = width;
+    this.height = height;
 
-    fill(0);
-    // eyes
-    ellipse(snowman[i].x_pos - 10, snowman[i].y_pos - 105, 5, 5);
-    ellipse(snowman[i].x_pos + 10, snowman[i].y_pos - 105, 5, 5);
+    this.draw = function () {
+      // snowman
+      fill(255);
+      noStroke();
+      ellipse(this.x_pos, this.y_pos, this.width, this.height);
+      ellipse(this.x_pos, this.y_pos - 50, this.width - 30, this.height - 30);
+      ellipse(this.x_pos, this.y_pos - 100, this.width - 40, this.height - 40);
 
-    // carrot
-    fill(255, 165, 0);
-    triangle(
-      snowman[i].x_pos,
-      snowman[i].y_pos - 100,
-      snowman[i].x_pos,
-      snowman[i].y_pos - 90,
-      snowman[i].x_pos + 40,
-      snowman[i].y_pos - 85
-    );
+      fill(0);
+      // eyes
+      ellipse(this.x_pos - 10, this.y_pos - 105, 5, 5);
+      ellipse(this.x_pos + 10, this.y_pos - 105, 5, 5);
 
-    // hands
-    stroke(160, 82, 45);
-    strokeWeight(5);
-    line(
-      snowman[i].x_pos - 80,
-      snowman[i].y_pos - 100,
-      snowman[i].x_pos - 30,
-      snowman[i].y_pos - 50
-    );
-    line(
-      snowman[i].x_pos + 80,
-      snowman[i].y_pos - 100,
-      snowman[i].x_pos + 30,
-      snowman[i].y_pos - 50
-    );
+      // carrot
+      fill(255, 165, 0);
+      triangle(
+        this.x_pos,
+        this.y_pos - 100,
+        this.x_pos,
+        this.y_pos - 90,
+        this.x_pos + 40,
+        this.y_pos - 85
+      );
 
-    // buttons
-    fill(0);
-    noStroke();
-    ellipse(snowman[i].x_pos, snowman[i].y_pos - 60, 7, 7);
-    ellipse(snowman[i].x_pos, snowman[i].y_pos - 40, 7, 7);
-    ellipse(snowman[i].x_pos, snowman[i].y_pos - 20, 7, 7);
-  }
-}
+      // hands
+      stroke(160, 82, 45);
+      strokeWeight(5);
+      line(this.x_pos - 80, this.y_pos - 100, this.x_pos - 30, this.y_pos - 50);
+      line(this.x_pos + 80, this.y_pos - 100, this.x_pos + 30, this.y_pos - 50);
+
+      // buttons
+      fill(0);
+      noStroke();
+      ellipse(this.x_pos, this.y_pos - 60, 7, 7);
+      ellipse(this.x_pos, this.y_pos - 40, 7, 7);
+      ellipse(this.x_pos, this.y_pos - 20, 7, 7);
+    };
+  },
+  drawSnowman: function () {
+    for (let i = 0; i < snowmans.length; i++) {
+      snowmans[i].draw();
+    }
+  },
+};
 
 const Enemies = {
   Enemy: function (x, y, range) {
