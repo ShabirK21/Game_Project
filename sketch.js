@@ -11,6 +11,7 @@ let isLeft;
 let isRight;
 let isFalling;
 let isPlummeting;
+let onPlatform;
 // game scrolling variable
 let scrollPos;
 // scenery variables
@@ -20,6 +21,7 @@ let snow;
 let trees;
 let canyons;
 let collectables;
+let snowmen;
 let snowflakes;
 // other variables
 let game_score;
@@ -27,10 +29,7 @@ let char_lives;
 let gameMode;
 let jumpSound;
 let platforms;
-let onPlatform;
 let enemies;
-let char;
-let fire;
 let particles;
 let startButton;
 let rulesButton;

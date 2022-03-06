@@ -238,8 +238,8 @@ const Snowman = {
     };
   },
   drawSnowman: function () {
-    for (let i = 0; i < snowmans.length; i++) {
-      snowmans[i].draw();
+    for (let i = 0; i < snowmen.length; i++) {
+      snowmen[i].draw();
     }
   },
 };

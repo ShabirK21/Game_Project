@@ -152,10 +152,10 @@ function game_setup() {
 
   flagpole = { x_pos: width + 1500, height: 300, speed: 0.2, isReached: false };
 
-  snowmans = [];
-  snowmans.push(new Snowman.generateSnowman(150, 100, 100));
-  snowmans.push(new Snowman.generateSnowman(1050, 100, 100));
-  snowmans.push(new Snowman.generateSnowman(width + 1100, 100, 100));
+  snowmen = [];
+  snowmen.push(new Snowman.generateSnowman(150, 100, 100));
+  snowmen.push(new Snowman.generateSnowman(1050, 100, 100));
+  snowmen.push(new Snowman.generateSnowman(width + 1100, 100, 100));
 
   // Create platforms and push to array
   platforms = [];
