@@ -28,12 +28,16 @@ let game_score;
 let char_lives;
 let gameMode;
 let jumpSound;
+let walkSound;
+let backgroundSound;
+let fallingSound;
+let coinSound;
 let platforms;
 let enemies;
 let particles;
 let startButton;
 let rulesButton;
-let backButton;
+let y = 200;
 // Main Functions
 
 // setup function calling game setup
@@ -48,14 +52,22 @@ function setup() {
 
 // Preload splash screen image
 function preload() {
-  soundFormats("mp3", "wav");
-  jumpSound = loadSound("./Assets/jump.wav");
+  soundFormats('mp3', 'wav');
+  jumpSound = loadSound('./Assets/jump.wav');
+  walkSound = loadSound('./Assets/walking.wav');
+  backgroundSound = loadSound('./Assets/background.mp3');
+  fallingSound = loadSound('./Assets/falling_1.mp3');
+  coinSound = loadSound('./Assets/coin.wav');
   jumpSound.setVolume(0.1);
-  arcadeFont = loadFont("./Assets/ARCADECLASSIC.TTF");
-  arrowKeys = loadImage("./Assets/ArrowKeys.png");
-  startButtonImg = loadImage("./Assets/start.png");
-  rulesButtonImg = loadImage("./Assets/rules.png");
-  backButtonImg = loadImage("./Assets/back.png");
+  walkSound.setVolume(0.1);
+  fallingSound.setVolume(0.2);
+  coinSound.setVolume(0.1);
+  backgroundSound.setVolume(0.1);
+  arcadeFont = loadFont('./Assets/ARCADECLASSIC.TTF');
+  arrowKeys = loadImage('./Assets/ArrowKeys.png');
+  startButtonImg = loadImage('./Assets/start.png');
+  rulesButtonImg = loadImage('./Assets/rules.png');
+  backButtonImg = loadImage('./Assets/back.png');
 }
 
 // Call all splashscreen and main game functions
@@ -71,14 +83,14 @@ function draw() {
 
 // Splash screen
 function splashScreen() {
-  background("#B1E8FF");
+  background('#B1E8FF');
   textFont(arcadeFont);
   fill(0, 0, 0);
   textSize(100);
   textAlign(CENTER, TOP);
-  text("Snow Runner", 0, 12, width);
+  text('Snow Runner', 0, 12, width);
   textSize(50);
-  text("Controls", width / 2 + 380, height / 2 + 120);
+  text('Controls', width / 2 + 380, height / 2 + 120);
   image(arrowKeys, width / 2 + 50, height / 2 + 50, 200, 200);
   if (frameCount % 60 > 30) {
     image(startButtonImg, width / 2 - 400, height / 2 + 50, 200, 100);
@@ -89,13 +101,12 @@ function splashScreen() {
 
 // Main game function, calling all other functions
 function gamePlay() {
-  background("#B1E8FF");
+  background('#B1E8FF');
   noStroke();
   fill(255, 250, 250);
   rect(0, floorPos_y, width, height - floorPos_y, 10);
-  fill("#684132");
+  fill('#684132');
   rect(0, floorPos_y + 50, width, height - floorPos_y);
-
   push();
   //translate(random(-0.5, 0.5), random(-0.5, 0.5));
   translate(scrollPos, 0);
@@ -139,6 +150,7 @@ function gamePlay() {
 
   if (isPlummeting == true) {
     gameChar_y += 5;
+    fallingSound.play();
     checkIfCharacterDead();
     return;
   }
@@ -172,8 +184,10 @@ function gamePlay() {
 function keyPressed() {
   if (keyCode == 37) {
     isLeft = true;
+    walkSound.play();
   } else if (keyCode == 39) {
     isRight = true;
+    walkSound.play();
   } else if (keyCode == 38) {
     if (gameChar_y >= floorPos_y || onPlatform) {
       gameChar_y -= 100;
@@ -197,10 +211,10 @@ function keyReleased() {
 function createButtons() {
   var startButton;
   var rulesButton;
-  startButton = createImg("./Assets/transparent.png");
+  startButton = createImg('./Assets/transparent.png');
   startButton.size(200, 100);
   startButton.position(width / 2 - 400, height / 2 + 50);
-  rulesButton = createImg("./Assets/transparent.png");
+  rulesButton = createImg('./Assets/transparent.png');
   rulesButton.size(170, 75);
   rulesButton.position(width / 2 - 385, height / 2 + 150);
   rulesButton.mousePressed(function () {
@@ -209,27 +223,28 @@ function createButtons() {
   });
   startButton.mousePressed(function () {
     gameMode = 2;
+    backgroundSound.play();
     removeElements();
   });
 }
 
 function rules() {
   removeElements();
-  background("#B1E8FF");
+  background('#B1E8FF');
   fill(0);
   textSize(100);
   textAlign(CENTER, TOP);
-  text("Rules", 0, 12, width);
+  text('Rules', 0, 12, width);
   textSize(50);
   textAlign(CENTER, CENTER);
-  text("Collect 10 coins", width / 2, height / 2 - 100);
+  text('Collect 10 coins', width / 2, height / 2 - 100);
   fill(255, 215, 0);
   stroke(0);
   strokeWeight(1);
   ellipse(width / 2 + 230, height / 2 - 95, 20, 30);
   ellipse(width / 2 + 230, height / 2 - 95, 10, 20);
   fill(0);
-  text("Reach the flag", width / 2, height / 2 - 30);
+  text('Reach the flag', width / 2, height / 2 - 30);
   fill(0);
   rect(width / 2 + 200, height / 2 - 40, 10, 30);
   fill(46, 139, 87);
@@ -237,7 +252,7 @@ function rules() {
   if (frameCount % 60 > 30) {
     image(backButtonImg, width / 2 - 110, height / 2 + 150, 200, 100);
   }
-  backButton = createImg("./Assets/transparent.png");
+  backButton = createImg('./Assets/transparent.png');
   backButton.size(200, 100);
   backButton.position(width / 2 - 110, height / 2 + 150);
   backButton.mousePressed(function () {

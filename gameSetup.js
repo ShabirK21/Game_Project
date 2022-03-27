@@ -20,7 +20,7 @@ function game_setup() {
   canyons = [
     { x_pos: 250, width: 100 },
     { x_pos: 1250, width: 100 },
-    { x_pos: width + 1300, width: 100 },
+    { x_pos: width + 1300, width: 100 }
   ];
 
   trees = [];

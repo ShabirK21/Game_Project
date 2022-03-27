@@ -43,7 +43,7 @@ const Clouds = {
         clouds[i].x_pos = -clouds[i].width;
       }
     }
-  },
+  }
 };
 
 // Tree Drawing
@@ -73,7 +73,7 @@ const Tree = {
     for (let i = 0; i < trees.length; i++) {
       trees[i].draw();
     }
-  },
+  }
 };
 
 // Mountain Drawing
@@ -132,7 +132,7 @@ const Mountain = {
     for (let i = 0; i < mountains.length; i++) {
       mountains[i].draw();
     }
-  },
+  }
 };
 
 // Snowflake Initialization & Drawing
@@ -189,7 +189,7 @@ const Snow = {
     this.display = function () {
       ellipse(this.posX, this.posY, this.size);
     };
-  },
+  }
 };
 
 const Snowman = {
@@ -241,7 +241,7 @@ const Snowman = {
     for (let i = 0; i < snowmen.length; i++) {
       snowmen[i].draw();
     }
-  },
+  }
 };
 
 const Enemies = {
@@ -264,7 +264,7 @@ const Enemies = {
     };
     this.draw = function () {
       this.update();
-      fill("#C6DCF5");
+      fill('#C6DCF5');
       circle(this.current_x, this.y, this.size);
       fill(0);
       ellipse(this.current_x - 7, this.y - 5, this.size - 25);
@@ -291,7 +291,7 @@ const Enemies = {
         }
       }
     }
-  },
+  }
 };
 
 const Oil = {
@@ -334,5 +334,5 @@ const Oil = {
         particles.splice(i, 1);
       }
     }
-  },
+  }
 };

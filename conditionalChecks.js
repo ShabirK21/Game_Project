@@ -24,7 +24,7 @@ const Collectables = {
         x_pos: x,
         y_pos: floorPos_y,
         size: 40,
-        isFound: false,
+        isFound: false
       };
       if (!this.checkIfCollectableOverCanyon(collectable)) {
         collectables.push(collectable);
@@ -61,11 +61,12 @@ const Collectables = {
           ) < 20
         ) {
           collectables[i].isFound = true;
+          coinSound.play();
           game_score++;
         }
       }
     }
-  },
+  }
 };
 
 // End Of Collectable Functions
@@ -80,7 +81,7 @@ const Canyons = {
     }
   },
   drawCanyon: function (canyon) {
-    fill("#B1E8FF");
+    fill('#B1E8FF');
     rect(canyon.x_pos, floorPos_y, canyon.width, height - floorPos_y);
     Oil.drawOil(canyon.x_pos + canyon.width / 2, floorPos_y + 150, 10);
   },
@@ -100,7 +101,7 @@ const Canyons = {
       isPlummeting = true;
       char_lives--;
     }
-  },
+  }
 };
 
 // End of Canyon Functions
@@ -108,10 +109,10 @@ const Canyons = {
 // Drawing character health
 function drawLives() {
   fill(255, 0, 0);
-  textFont("calibri");
+  textFont('calibri');
   textAlign(RIGHT);
   for (let i = 0; i < char_lives; i++) {
-    text("♥", 900 + i * 50, 30);
+    text('♥', 900 + i * 50, 30);
   }
 }
 2;
@@ -172,13 +173,13 @@ function drawGameOver() {
   fill(0);
   textSize(50);
   textFont(arcadeFont);
-  text("Game Over", width / 2 - 100, height / 2 - 100);
+  text('Game Over', width / 2 - 100, height / 2 - 100);
 
   if (char_lives > 0) {
-    text("You Win!", width / 2 - 100, height / 2 - 50);
+    text('You Win!', width / 2 - 100, height / 2 - 50);
   } else {
     gameChar_y += 2;
-    text("You Lose!", width / 2 - 100, height / 2 - 50);
+    text('You Lose!', width / 2 - 100, height / 2 - 50);
   }
 }
 
@@ -203,7 +204,7 @@ const Platforms = {
         } else {
           return false;
         }
-      },
+      }
     };
 
     return p;
@@ -228,5 +229,5 @@ const Platforms = {
         gameChar_y += 1;
       }
     }
-  },
+  }
 };
