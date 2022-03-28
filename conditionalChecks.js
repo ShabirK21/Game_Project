@@ -143,7 +143,7 @@ function drawFlagpole() {
   if (
     gameChar_world_x > flagpole.x_pos &&
     gameChar_world_x < flagpole.x_pos + 100 &&
-    game_score >= 10
+    game_score >= 3
   ) {
     flagpole.isReached = true;
   }

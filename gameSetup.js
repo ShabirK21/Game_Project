@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
 function game_setup() {
   // game character variable initialization
-  gameChar_x = width / 2 - 400;
+  xc = width / 2 - 400;
+  gameChar_x = constrain(xc, 0, width);
   gameChar_y = floorPos_y;
   gameChar_width = 50;
   gameChar_world_x = gameChar_x;

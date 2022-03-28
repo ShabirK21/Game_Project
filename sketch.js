@@ -56,11 +56,11 @@ function preload() {
   jumpSound = loadSound('./Assets/jump.wav');
   walkSound = loadSound('./Assets/walking.wav');
   backgroundSound = loadSound('./Assets/background.mp3');
-  fallingSound = loadSound('./Assets/falling_1.mp3');
+  fallingSound = loadSound('./Assets/falling.mp3');
   coinSound = loadSound('./Assets/coin.wav');
   jumpSound.setVolume(0.1);
-  walkSound.setVolume(0.1);
-  fallingSound.setVolume(0.2);
+  walkSound.setVolume(0.2);
+  fallingSound.setVolume(0.1);
   coinSound.setVolume(0.1);
   backgroundSound.setVolume(0.1);
   arcadeFont = loadFont('./Assets/ARCADECLASSIC.TTF');
@@ -237,7 +237,7 @@ function rules() {
   text('Rules', 0, 12, width);
   textSize(50);
   textAlign(CENTER, CENTER);
-  text('Collect 10 coins', width / 2, height / 2 - 100);
+  text('Collect 3 coins', width / 2, height / 2 - 100);
   fill(255, 215, 0);
   stroke(0);
   strokeWeight(1);
